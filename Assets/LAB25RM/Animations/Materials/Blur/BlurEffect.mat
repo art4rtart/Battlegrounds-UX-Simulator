@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlurEffect
+  m_Shader: {fileID: 4800000, guid: ce361e30b284de344a7ccfbd7f931647, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AddTexture:
+        m_Texture: {fileID: 2800000, guid: 0ecc73610b67d97469f58586f2217ce2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionGuide:
+        m_Texture: {fileID: 2800000, guid: 0a85a6942b4e13b479ac3584f2b56718, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 0ecc73610b67d97469f58586f2217ce2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CenterX: 0.5
+    - _CenterY: 0.5
+    - _DistortionAmount: 10
+    - _Hardness: 0.83
+    - _HitHardness: 0
+    - _Invert: 1
+    - _Radius: 0
+    - _SizeX: 1.92
+    - _SizeY: 1.08
+    m_Colors:
+    - _MainColor: {r: 0, g: 0, b: 0, a: 0}
