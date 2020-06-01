@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
+    Animator animator;
+    GameObject LoadingObject;
+    public string sceneName;
+
     public void Awake()
     {
+        animator = GetComponent<Animator>();
+        LoadingObject = this.transform.GetChild(0).gameObject;
+
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -20,16 +27,21 @@ public class SceneMaster : MonoBehaviour
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Battleground");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        animator.SetTrigger("Load");
+        sceneName = "Battleground";
+
     }
 
     public void LoadLevel2()
     {
-        SceneManager.LoadScene("LAB25");
+        animator.SetTrigger("Load");
+        sceneName = "LAB25";
     }
 
-    public void LoadLevel3()
+    public void LoadLevel()
     {
-        SceneManager.LoadScene("Survey");
+        SceneManager.LoadScene(sceneName);
     }
 }
