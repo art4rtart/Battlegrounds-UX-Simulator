@@ -80,17 +80,15 @@ public class Weapon : MonoBehaviour
         wepaonAnim.Play(animNameInfo, 0, 0f);
     }
 
-    public void Shoot(RaycastHit hit, Transform cam, LayerMask layersToHit, LayerMask stopLayer, Animator wepaonAnim, bool isZooming)
+    public void Shoot(RaycastHit hit, Transform cam, LayerMask layersToHit, LayerMask stopLayer, Animator wepaonAnim, bool isZooming, int audioIndex)
     {
         if (currentAmo >= 1 && Time.time > nextShotTime)
         {
             nextShotTime = Time.time + fireRate / 1000;
 
-            // sound play
-            //shootAudioSource.clip = SoundClips.shootSound;
-            //shootAudioSource.Play();
-
             muzzleFlash.Play();
+
+            WeaponController.Instance.weaponAudioSrouce.PlayOneShot(WeaponController.Instance.audioClip[audioIndex]);
 
             if (!isZooming) FireInfo(wepaonAnim, "Fire", new Vector2(recoilStrengthMinMax.x, recoilStrengthMinMax.x), muzzlePivotNormal.transform);
             else FireInfo(wepaonAnim, "Aim Fire", new Vector2(recoilStrengthMinMax.y, recoilStrengthMinMax.y), muzzlePivotAim.transform);

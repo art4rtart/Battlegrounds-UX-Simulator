@@ -113,12 +113,12 @@ public class Item : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, itemRadius, humanLayermask);
         bool active = hitColliders.Length != 0 ? true : false;
 
-        if (active && !isFound) {
+        if (active && !isFound && ItemDetector.Instance) {
             ItemDetector.Instance.groundItems.Add(this.gameObject.GetComponent<Item>());
             ItemDetector.Instance.UpdateGroundItem();
             isFound = true;
         }
-        if (!active) {
+        if (!active && ItemDetector.Instance) {
             ItemDetector.Instance.groundItems.Remove(this.gameObject.GetComponent<Item>());
             ItemDetector.Instance.UpdateGroundItem();
             isFound = false;

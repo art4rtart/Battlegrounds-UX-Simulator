@@ -17,8 +17,7 @@ public class BloodSplatter : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if (!other.gameObject.CompareTag("Enviroment")) return;         
-
+        if (!other.gameObject.CompareTag("Enviroment")) return;
         int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
         int i = 0;
         while (i < (int)(numCollisionEvents) / 5)

@@ -64,10 +64,16 @@ public class WeaponController : MonoBehaviour
     public LayerMask itemLayermask;
     public LayerMask pointerLayerMask;
 
+    [Header("Sound")]
+    [HideInInspector] public AudioSource weaponAudioSrouce;
+    public AudioClip[] audioClip;
+    int audioClipIndex;
+
     void Awake()
     {
         if (equippedGun == null) equippedGun = startingGun[currentGunIndex - 1];
         weaponAnimator = this.transform.GetChild(currentGunIndex-1).GetComponent<Animator>();
+        weaponAudioSrouce = GetComponent<AudioSource>();
         cam = Camera.main.transform;
 
         initialSwayPosition = transform.localPosition;
@@ -208,6 +214,8 @@ public class WeaponController : MonoBehaviour
 
     public void ChangeWeapon(int index)
     {
+        weaponAudioSrouce.clip = audioClip[2];
+        weaponAudioSrouce.Play();
         weaponAnimator.SetBool("Holster", true);
         previousGunIndex = index;
         Invoke("ActiveNextWeapon", 0.35f);
@@ -232,10 +240,11 @@ public class WeaponController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, shootRange)) {
             if (auto)  {
-                if (equippedGun != null && isReadyToFire) equippedGun.Shoot(hit, cam, layersToHit, stopLayer, weaponAnimator, isZooming);
+                if (equippedGun != null && isReadyToFire) equippedGun.Shoot(hit, cam, layersToHit, stopLayer, weaponAnimator, isZooming, audioClipIndex);
             }
             else {
-                if (equippedGun != null && isReadyToFire && !shootOnce) equippedGun.Shoot(hit, cam, layersToHit, stopLayer, weaponAnimator, isZooming);
+                audioClipIndex = 1;
+                if (equippedGun != null && isReadyToFire && !shootOnce) equippedGun.Shoot(hit, cam, layersToHit, stopLayer, weaponAnimator, isZooming, audioClipIndex);
                 shootOnce = true;
             }
         }
