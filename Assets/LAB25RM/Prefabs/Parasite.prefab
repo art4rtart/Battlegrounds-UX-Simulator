@@ -5121,6 +5121,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6200,6 +6201,7 @@ GameObject:
   - component: {fileID: 4445624721183521757}
   - component: {fileID: 4445624721183521759}
   - component: {fileID: 4445624721183521755}
+  - component: {fileID: 41504712}
   m_Layer: 11
   m_Name: parasiteZombie
   m_TagString: Creature
@@ -6235,6 +6237,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6389,6 +6392,35 @@ MonoBehaviour:
   biteBloodParticle: {fileID: 2584207985479892935}
   target: {fileID: 0}
   foundTarget: 0
+--- !u!114 &41504712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836509695552659928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf671856196288d469c81315cc322582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 7983032114223874509, guid: 6b6d21a3995a5f14ea3c915e2b18c419, type: 3}
+  - {fileID: 3266722110700865544, guid: 1dd4155e1966cb7438adc01586da6087, type: 3}
+  - {fileID: 1928921410940923671, guid: 57fcbfc9aac34ee4a83c0a61778bc8a5, type: 3}
+  parts:
+  - {fileID: 4209591014153118366, guid: 93a9e3a8c6608754783431e941fe2801, type: 3}
+  - {fileID: 1252350543056622515, guid: 9999d97517f10a04f8f836aa7a8fc446, type: 3}
+  - {fileID: 4559083269523542378, guid: fdb699996052f1d41b024b9f754ae281, type: 3}
+  - {fileID: 3595482749509357299, guid: 2b614fefe321b8346b1da677313d4020, type: 3}
+  - {fileID: 4774786107203620515, guid: 9afa906a2426f5249b1fd4f58e1a0656, type: 3}
+  - {fileID: 4206679544804904507, guid: 7bb81c670f14b464fa1168257798333e, type: 3}
+  - {fileID: 235230579532845005, guid: bbca8e210a7904346a3d6c87496e360b, type: 3}
+  itemDropPercentage: 0.25
+  partDropPercentage: 0.1
+  maxDropQuantity: 3
+  dropRange: 0.75
+  isDropped: 0
 --- !u!1 &6053448373597127856
 GameObject:
   m_ObjectHideFlags: 0

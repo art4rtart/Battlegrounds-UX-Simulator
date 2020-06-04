@@ -37,7 +37,7 @@ public class SceneMaster : MonoBehaviour
     public void LoadLevel2()
     {
         animator.SetTrigger("Load");
-        sceneName = "LAB25";
+        sceneName = "OurGame";
     }
 
     public void LoadLevel()

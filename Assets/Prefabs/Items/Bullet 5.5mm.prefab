@@ -316,6 +316,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1103,7 +1104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc346511426e6c94d9784afc192c280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
+  itemType: 3
+  partType: 0
   item: {fileID: 7983032112976043709}
   itemImage: {fileID: 21300000, guid: 0608c79e6bf258b4889f35f5a1ff0fa0, type: 3}
   name: 5.5mm Ammo

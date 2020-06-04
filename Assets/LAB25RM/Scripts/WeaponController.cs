@@ -112,7 +112,7 @@ public class WeaponController : MonoBehaviour
 
     Item item;
     public bool isBattleground;
-
+    public bool isOurGame;
     //by f key
     void Gain(Transform _hit)
     {
@@ -123,6 +123,11 @@ public class WeaponController : MonoBehaviour
             ItemDetector.Instance.UpdateGroundItem();
             ItemDetector.Instance.UpdateInventoryItems();
             item.transform.SetParent(ItemDetector.Instance.itemHolder);
+        }
+        if (isOurGame)
+        {
+            CyberPunkItemManger.Instance.AddItemToInvenotry(item);
+            item.transform.SetParent(CyberPunkItemManger.Instance.itemHolder);
         }
         item.AddItem(equippedGun);
         item.gameObject.SetActive(false);

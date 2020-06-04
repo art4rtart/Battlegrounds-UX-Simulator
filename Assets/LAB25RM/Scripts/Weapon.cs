@@ -13,10 +13,13 @@ public class Weapon : MonoBehaviour
 
     public Sprite weaponImage;
     public string weaponName;
+    public string weaponShootType;
     public float totalAmo = 0;
     public float currentAmo = 0;
     public float maxAmo = 0;
     public float magazineAmo = 0;
+    public string weaponAmmoName;
+
 
     [Header("Recoil")]
     public Vector2 kickMinMax = new Vector2(.05f, .2f);

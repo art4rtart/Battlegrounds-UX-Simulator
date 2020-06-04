@@ -20,10 +20,12 @@ public class ParasiteController : MonoBehaviour
     Transform parent;
 
     Parasite parasite;
+    ParasiteItemDropper parasiteItem;
 
     private void Awake()
     {
         parasite = FindObjectOfType<Parasite>();
+        parasiteItem = GetComponent<ParasiteItemDropper>();
         player = FindObjectOfType<FirstPersonController>();
         parent = this.gameObject.transform.parent;
         target = Camera.main.transform;
@@ -90,10 +92,9 @@ public class ParasiteController : MonoBehaviour
         animator.SetTrigger("Run");
         agent.speed = 10f;
 
-        while (!player.isDead && agent.enabled && agent.remainingDistance > agent.stoppingDistance)
+        while (!player.isDead && agent.enabled && agent.isOnNavMesh && agent.remainingDistance > agent.stoppingDistance)
         {
             agent.SetDestination(target.position);
-
             if (WeaponController.Instance.weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 agent.stoppingDistance = 1.35f;
             else agent.stoppingDistance = 1.2f;
@@ -101,9 +102,24 @@ public class ParasiteController : MonoBehaviour
             yield return null;
         }
 
+        if (agent.enabled && agent.isOnNavMesh && agent.remainingDistance == 0)
+        {
+            agent.SetDestination(target.position);
+            while (agent.enabled && agent.isOnNavMesh)
+            {
+                agent.SetDestination(target.position);
+                if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
+                {
+                    break;
+                }
+                yield return null;
+            }
+        }
+
         if (!player.isDead && !animator.GetBool("Die"))
         {
             // attack
+
             agent.SetDestination(this.transform.position);
             agent.transform.LookAt(target);
             animator.SetTrigger("Bite");
@@ -158,6 +174,7 @@ public class ParasiteController : MonoBehaviour
             animator.SetBool("Die", true);
             agent.speed = 0f;
             agent.enabled = false;
+            parasiteItem.DropItem();
         }
         else {
         }
@@ -188,6 +205,7 @@ public class ParasiteController : MonoBehaviour
         material.SetFloat("_Dirtiness", parasite.damagedRate);
         material.SetFloat("_Dissolved", 1f);
         parasite.character.health = 100f;
+        parasiteItem.isDropped = false;
 
         agent.speed = 1.5f;
 
