@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
 
     public GameObject item;
     public Sprite itemImage;
+    public Sprite itemPartsImage;
     public string name;
     public string itemUseType;
     public string tag;

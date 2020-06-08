@@ -6,95 +6,99 @@ using TMPro;
 
 public class PartsScrollController : MonoBehaviour
 {
-    Animator animator;
+    RectTransform rectTransform;
 
-    CanvasGroup canvasGroup;
-    public bool isPined = false;
+    int count = 0;
+    bool isMoved = false;
 
-    public GameObject handler;
-    public GameObject scrollview;
-    public TextMeshProUGUI tmpro;
+    Vector3 originTransform;
 
-    public GameObject hoverText;
+    int contentCount;
+    float originX;
+    float x = 0;
 
+    public RectTransform hoverBoundingBox;
 
-    [Header("Color Settings")]
-    public Color defaultColor;
-    public Color equippedColor;
-    Image image;
-
-    private void OnEnable()
+    public void OnEnable()
     {
-        image.color = defaultColor;
-        animator.enabled = true;
-    }
+        contentCount = this.transform.childCount;
 
-    private void Awake()
-    {
-        if (!scrollview) Debug.Log("Scroll panel should be added.");
-        animator = GetComponent<Animator>();
-        image = GetComponent<Image>();
-        canvasGroup = scrollview.GetComponent<CanvasGroup>();
-        hoverText.SetActive(true);
-    }
-
-    public void HoverEnter()
-    {
-        if (CyberPunkUIController.Instance.isItemPicked &&
-            CyberPunkUIController.Instance.currentContent.targetTransform == this.transform
-            ) { animator.enabled = false; image.color = equippedColor; }
-
-        if (!CyberPunkUIController.Instance.isItemPicked)
+        for(int i = 2; i < contentCount; i++)
         {
-            animator.SetBool("Activate", true);
-            hoverText.SetActive(false);
+            CyberPunkItemContent cpContent = transform.GetChild(i).GetComponent<CyberPunkItemContent>();
+            cpContent.SetTarget(i);
         }
     }
 
-    public void HoverExit()
+    public void Start()
     {
-            image.color = defaultColor;
-            animator.enabled = true;
-        animator.SetBool("Activate", false);
-        if(!isPined) hoverText.SetActive(true);
+        rectTransform = GetComponent<RectTransform>();
+        originTransform = rectTransform.localPosition;
+        originX = rectTransform.anchoredPosition.x;
+        x = originX;
     }
 
-    public void HoverUp()
-    {
+    bool scrollValueChanged = false;
 
+
+    bool isActive = false;
+
+    bool IsHovering()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        if (mousePosition.x > hoverBoundingBox.position.x - hoverBoundingBox.sizeDelta.x * .5f
+            && mousePosition.x < hoverBoundingBox.position.x + hoverBoundingBox.sizeDelta.x * .5f
+            && mousePosition.y > hoverBoundingBox.position.y - hoverBoundingBox.sizeDelta.y * .5f
+            && mousePosition.y < hoverBoundingBox.position.y + hoverBoundingBox.sizeDelta.y * .5f)
+            isActive = true;
+        else isActive = false;
+
+        return isActive;
     }
 
-    public void HoverClick()
+    public void Update()
     {
-        isPined = !isPined;
-        canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
-        animator.SetBool("Pined", isPined);
+        if (!IsHovering()) return;
 
-        if (isPined)
+        float wheel = Input.GetAxis("Mouse ScrollWheel") * 1000f;
+
+        if(wheel != 0)
         {
-            tmpro.text = "SELECT";
-            scrollview.transform.SetParent(handler.transform);
+            x = Mathf.Clamp(x -= wheel, originX - contentCount * 100f + 200f, originX);
+            StopAllCoroutines();
+            StartCoroutine(ScrollToTarget(x));
+            wheel = 0;
         }
+    }
 
-        else
+    public void MoveToTarget(float _targetPosX)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ScrollToTarget(_targetPosX));
+    }
+
+    IEnumerator ScrollToTarget(float _targetPosX)
+    {
+        float lerpSpeed = 0f;
+
+        float currentPosX = rectTransform.anchoredPosition.x;
+        while (currentPosX != _targetPosX)
         {
-            tmpro.text = "SCROLL";
-            scrollview.transform.SetParent(this.transform);
+            currentPosX = Mathf.Lerp(currentPosX, _targetPosX, lerpSpeed);
+            lerpSpeed += Time.deltaTime * .5f;
+            rectTransform.anchoredPosition = new Vector2(currentPosX, rectTransform.anchoredPosition.y);
+            yield return null;
         }
+        rectTransform.anchoredPosition = new Vector2((int)_targetPosX  + 1f, rectTransform.anchoredPosition.y);
+        scrollValueChanged = false;
+
+        // play sound
+
+        // equip effect
+        if(partsImage.sprite != null && currentContent.itemPartsSprite != null) partsImage.sprite = currentContent.itemPartsSprite;
     }
 
-    public void ScrollViewDown()
-    {
-        scrollview.GetComponent<ScrollRect>().enabled = false;
-    }
-
-    public void ScrollViewUp()
-    {
-        scrollview.GetComponent<ScrollRect>().enabled = true;
-    }
-
-    public void InitializeScrollViewParent()
-    {
-        scrollview.transform.SetParent(this.transform);
-    }
+    public Image partsImage;
+    [HideInInspector]
+    public CyberPunkItemContent currentContent;
 }

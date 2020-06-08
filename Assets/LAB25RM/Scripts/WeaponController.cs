@@ -65,15 +65,16 @@ public class WeaponController : MonoBehaviour
     public LayerMask pointerLayerMask;
 
     [Header("Sound")]
-    [HideInInspector] public AudioSource weaponAudioSrouce;
+    [HideInInspector] public AudioSource weaponAudioSource;
     public AudioClip[] audioClip;
+    public AudioClip gainClip;
     int audioClipIndex;
 
     void Awake()
     {
         if (equippedGun == null) equippedGun = startingGun[currentGunIndex - 1];
         weaponAnimator = this.transform.GetChild(currentGunIndex-1).GetComponent<Animator>();
-        weaponAudioSrouce = GetComponent<AudioSource>();
+        weaponAudioSource = GetComponent<AudioSource>();
         cam = Camera.main.transform;
 
         initialSwayPosition = transform.localPosition;
@@ -131,6 +132,7 @@ public class WeaponController : MonoBehaviour
         }
         item.AddItem(equippedGun);
         item.gameObject.SetActive(false);
+        weaponAudioSource.PlayOneShot(gainClip);
     }
 
     // by drag and drop
@@ -145,6 +147,8 @@ public class WeaponController : MonoBehaviour
         }
         _item.AddItem(equippedGun);
         _item.gameObject.SetActive(false);
+
+        weaponAudioSource.PlayOneShot(gainClip);
     }
 
     //temp
@@ -154,8 +158,6 @@ public class WeaponController : MonoBehaviour
         _item.DropItem(equippedGun);
         _item.gameObject.SetActive(true);
     }
-
-
 
     void LateUpdate()
     {
@@ -173,7 +175,6 @@ public class WeaponController : MonoBehaviour
             transform.localPosition = Vector3.Lerp(transform.localPosition, finalSwayPosition + initialSwayPosition, Time.deltaTime * swaySmoothValue);
         }
     }
-
 
     public bool auto = true;
     public bool shootOnce = false;
@@ -219,8 +220,8 @@ public class WeaponController : MonoBehaviour
 
     public void ChangeWeapon(int index)
     {
-        weaponAudioSrouce.clip = audioClip[2];
-        weaponAudioSrouce.Play();
+        weaponAudioSource.clip = audioClip[2];
+        weaponAudioSource.Play();
         weaponAnimator.SetBool("Holster", true);
         previousGunIndex = index;
         Invoke("ActiveNextWeapon", 0.35f);

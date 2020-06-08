@@ -597,7 +597,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4209591014153118366}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
@@ -622,6 +622,7 @@ MonoBehaviour:
   partType: 2
   item: {fileID: 4209591014343685488}
   itemImage: {fileID: 21300000, guid: 30154899d8e840a44a806895a7d707d0, type: 3}
+  itemPartsImage: {fileID: 0}
   name: Vertical Handle
   itemUseType: AR Parts
   tag: Item

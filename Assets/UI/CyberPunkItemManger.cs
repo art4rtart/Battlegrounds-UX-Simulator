@@ -51,7 +51,6 @@ public class CyberPunkItemManger : MonoBehaviour
                 parentIndex = 4;
                 break;
         }
-        obj.GetComponent<CyberPunkItemContent>().targetTransform = parent[parentIndex].parent.parent.parent;
         obj.transform.SetParent(parent[parentIndex]);
         obj.transform.localScale = Vector3.one;
         obj.GetComponent<CyberPunkItemContent>().SetItemInfo(_item);

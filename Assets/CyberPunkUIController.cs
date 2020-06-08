@@ -35,10 +35,15 @@ public class CyberPunkUIController : MonoBehaviour
 
     public bool isItemPicked;
 
+
+    private void Awake()
+    {
+        if (this.gameObject.activeSelf) this.gameObject.SetActive(false);
+    }
+
     private void OnEnable()
     {
         StopAllCoroutines();
-        StartCoroutine(PingPongAlpha());
 
         weaponName.text = WeaponController.Instance.equippedGun.weaponName + "<size=15><color=#ABABAB>     " +
             WeaponController.Instance.equippedGun.weaponShootType + "</size></color>";
@@ -54,27 +59,10 @@ public class CyberPunkUIController : MonoBehaviour
     {
         for (int i = 0; i < partsScrollController.Length; i++)
         {
-            partsScrollController[i].InitializeScrollViewParent();
-            partsScrollController[i].isPined = false;
-            partsScrollController[i].hoverText.SetActive(true);
-            partsScrollController[i].scrollview.GetComponent<CanvasGroup>().blocksRaycasts = false;
-        }
-    }
-
-    IEnumerator PingPongAlpha()
-    {
-        float alpha = 1f;
-
-        Color imageColor = text[0].color;
-
-        while (true)
-        {
-            for (int i = 0; i < text.Length; i++)
-            {
-                text[i].color = new Color(imageColor.r, imageColor.g, imageColor.b, alpha);
-            }
-            alpha = Mathf.PingPong(Time.time * 1f, 1f);
-            yield return null;
+            //partsScrollController[i].InitializeScrollViewParent();
+            //partsScrollController[i].isPined = false;
+            //partsScrollController[i].hoverText.SetActive(true);
+            //partsScrollController[i].scrollview.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
     }
 }
