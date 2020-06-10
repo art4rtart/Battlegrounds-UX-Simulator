@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour
     }
     private static WeaponController instance;
 
-    Transform cam;
+    public Transform cam;
     [HideInInspector] public Animator weaponAnimator;
     public Animator[] animators;
     [HideInInspector] public Weapon equippedGun;
@@ -97,7 +97,8 @@ public class WeaponController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, itemFindRayDistance, pointerLayerMask))
         {
-            if (!hit.transform.CompareTag("Item")) {
+            if (!hit.transform.CompareTag("Item"))
+            {
                 InteractUIController.Instance.HideUI();
                 return;
             }

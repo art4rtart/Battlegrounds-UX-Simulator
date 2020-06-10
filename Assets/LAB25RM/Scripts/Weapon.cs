@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     float nextShotTime;
 
     public Sprite weaponImage;
+    public Sprite weaponImageInfoPanel;
     public string weaponName;
     public string weaponShootType;
     public float totalAmo = 0;
@@ -106,6 +107,7 @@ public class Weapon : MonoBehaviour
 
             int stoppingIndex = 0;
             int passes = 0;
+
             RaycastHit[] entryHits = Physics.RaycastAll(cam.position, cam.forward, shootRange, layersToHit).OrderBy(h => h.distance).ToArray();
 
             Parasite parasite = entryHits[0].transform.GetComponent<Parasite>();

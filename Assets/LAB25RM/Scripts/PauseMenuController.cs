@@ -23,24 +23,31 @@ public class PauseMenuController : MonoBehaviour
     public GameObject PauseUICanvas;
     public GameObject weaponUICanvas;
 
+    public bool isBattleground;
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.P))
         {
+            isPaused = !isPaused;
             FirstPersonController.Instance.mouseManager.UnlockCursor();
             StopAllCoroutines();
-            StartCoroutine(BlurScreen());
+            if (isBattleground) { StartCoroutine(BlurScreen()); }
+            WeaponController.Instance.weaponAnimator.SetBool("Aim", false);
+            WeaponController.Instance.weaponAnimator.SetBool("Walk", false);
+            WeaponController.Instance.weaponAnimator.SetBool("Run", false);
             PauseUICanvas.SetActive(!PauseUICanvas.activeSelf);
             weaponUICanvas.SetActive(!weaponUICanvas.activeSelf);
-            FirstPersonController.Instance.enabled = !FirstPersonController.Instance.enabled;
+            WeaponController.Instance.enabled = !WeaponController.Instance.enabled;
+
+            if (isPaused) FirstPersonController.Instance.LockHeadMovement();
+            else FirstPersonController.Instance.UnLockHeadMovement();
         }
     }
 
     IEnumerator BlurScreen()
     {
-        isPaused = !isPaused;
-
-        GameTimeController.isPaused = isPaused;
+        // GameTimeController.isPaused = isPaused;
 
         float iteration = BlurEffect.Instance.iterations;
         float lerpValue = 0;

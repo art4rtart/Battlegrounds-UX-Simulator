@@ -41,6 +41,7 @@ public class BGItemContent : MonoBehaviour
     private void OnEnable()
     {
         if(item) itemSummerizedPanel.transform.GetChild(1).GetComponent<Image>().sprite = item.itemImage;  
+        if(item) itemHoverStatePanel.SetActive(false);
     }
 
     private void OnDisable()

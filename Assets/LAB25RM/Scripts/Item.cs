@@ -51,9 +51,6 @@ public class Item : MonoBehaviour
         itemUseTypeText.text = itemUseType;
         itemQuantityText.text = "x " + quantity.ToString();
         weaponCurrentStateText.text = weaponCurrentState;
-
-
-        Destroy(this.gameObject, 15f);
     }
 
     private void Start()

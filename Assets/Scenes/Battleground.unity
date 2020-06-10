@@ -24104,10 +24104,12 @@ MonoBehaviour:
   fireRate: 80
   weaponImage: {fileID: 21300000, guid: d7523d2f35bb4c242aff1bb5d65f1042, type: 3}
   weaponName: GLOCK
+  weaponShootType: 
   totalAmo: 45
   currentAmo: 15
   maxAmo: 15
   magazineAmo: 0
+  weaponAmmoName: 
   kickMinMax: {x: 0.05, y: 0.2}
   recoilStrengthMinMax: {x: 3, y: 1}
   recoilMoveSettleTime: 0.1
@@ -30593,10 +30595,12 @@ MonoBehaviour:
   fireRate: 120
   weaponImage: {fileID: 21300000, guid: 0ecc73610b67d97469f58586f2217ce2, type: 3}
   weaponName: AK47
+  weaponShootType: 
   totalAmo: 360
   currentAmo: 30
   maxAmo: 30
   magazineAmo: 0
+  weaponAmmoName: 
   kickMinMax: {x: 0.1, y: 0.1}
   recoilStrengthMinMax: {x: 7, y: 3}
   recoilMoveSettleTime: 0.1
@@ -57026,6 +57030,7 @@ MonoBehaviour:
   isPaused: 0
   PauseUICanvas: {fileID: 1609390356}
   weaponUICanvas: {fileID: 887952754}
+  isBattleground: 1
 --- !u!1 &972715786
 GameObject:
   m_ObjectHideFlags: 0
@@ -91549,6 +91554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf47fba6eff8a74d8c5d91786783097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   weaponAnimator: {fileID: 0}
   animators:
   - {fileID: 122951074}
@@ -91592,7 +91598,11 @@ MonoBehaviour:
   pointerLayerMask:
     serializedVersion: 2
     m_Bits: 1536
+  weaponAudioSource: {fileID: 0}
+  audioClip: []
+  gainClip: {fileID: 0}
   isBattleground: 1
+  isOurGame: 0
   auto: 1
   shootOnce: 0
 --- !u!1 &1653147050
@@ -105867,10 +105877,12 @@ MonoBehaviour:
   fireRate: 100
   weaponImage: {fileID: 21300000, guid: 0ecc73610b67d97469f58586f2217ce2, type: 3}
   weaponName: NoSafety
+  weaponShootType: 
   totalAmo: 360
   currentAmo: 30
   maxAmo: 30
   magazineAmo: 0
+  weaponAmmoName: 
   kickMinMax: {x: 0.1, y: 0.1}
   recoilStrengthMinMax: {x: 7, y: 3}
   recoilMoveSettleTime: 0.1

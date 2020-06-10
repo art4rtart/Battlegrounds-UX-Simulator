@@ -28,6 +28,8 @@ public class PartsScrollController : MonoBehaviour
             CyberPunkItemContent cpContent = transform.GetChild(i).GetComponent<CyberPunkItemContent>();
             cpContent.SetTarget(i);
         }
+
+        if (currentTargetPosX != 0) { rectTransform.anchoredPosition = new Vector2((int)currentTargetPosX + 1f, rectTransform.anchoredPosition.y); }
     }
 
     public void Start()
@@ -43,6 +45,9 @@ public class PartsScrollController : MonoBehaviour
 
     bool isActive = false;
 
+    public Color highlightColor;
+    public Color defaultColor;
+
     bool IsHovering()
     {
         Vector3 mousePosition = Input.mousePosition;
@@ -52,6 +57,12 @@ public class PartsScrollController : MonoBehaviour
             && mousePosition.y < hoverBoundingBox.position.y + hoverBoundingBox.sizeDelta.y * .5f)
             isActive = true;
         else isActive = false;
+
+        if (isActive) {
+            // play hover sound
+            hoverBoundingBox.GetComponent<Image>().color = highlightColor;
+        }
+        else hoverBoundingBox.GetComponent<Image>().color = defaultColor;
 
         return isActive;
     }
@@ -66,19 +77,39 @@ public class PartsScrollController : MonoBehaviour
         {
             x = Mathf.Clamp(x -= wheel, originX - contentCount * 100f + 200f, originX);
             StopAllCoroutines();
-            StartCoroutine(ScrollToTarget(x));
+            StartCoroutine(ScrollToTarget(x, PartsType.None, ""));
             wheel = 0;
         }
     }
 
-    public void MoveToTarget(float _targetPosX)
+    public void MoveToTarget(float _targetPosX, PartsType _itemType, string _itemName)
     {
         StopAllCoroutines();
-        StartCoroutine(ScrollToTarget(_targetPosX));
+        StartCoroutine(ScrollToTarget(_targetPosX, _itemType, _itemName));
     }
 
-    IEnumerator ScrollToTarget(float _targetPosX)
+    IEnumerator ScrollToTarget(float _targetPosX, PartsType _itemType, string itemName)
     {
+        switch(_itemType)
+        {
+            case PartsType.Scope:
+                PartsAddController.Instance.SetScope(itemName);
+                break;
+            case PartsType.Muzzle:
+                PartsAddController.Instance.SetMuzzle(itemName);
+                break;
+            case PartsType.Magazine:
+                PartsAddController.Instance.SetMagazine(itemName);
+                break;
+            case PartsType.Reverse:
+                PartsAddController.Instance.SetStock(itemName);
+                break;
+            case PartsType.Handle:
+                PartsAddController.Instance.SetHandle(itemName);
+                break;
+        }
+
+        currentTargetPosX = _targetPosX;
         float lerpSpeed = 0f;
 
         float currentPosX = rectTransform.anchoredPosition.x;
@@ -101,4 +132,6 @@ public class PartsScrollController : MonoBehaviour
     public Image partsImage;
     [HideInInspector]
     public CyberPunkItemContent currentContent;
+
+    float currentTargetPosX;
 }

@@ -11,6 +11,7 @@ public class CyberPunkItemContent : MonoBehaviour
     public Sprite itemPartsSprite;
 
     PartsScrollController partsScrollController;
+    PartsType partType;
 
     public float targetPosX;
 
@@ -28,17 +29,37 @@ public class CyberPunkItemContent : MonoBehaviour
         itemName.text = _item.name;
         image.sprite = _item.itemImage;
         itemPartsSprite = _item.itemPartsImage;
+        partType = _item.partType;
     }
 
     public void ClickItem()
     {
         partsScrollController.currentContent = this.gameObject.GetComponent<CyberPunkItemContent>();
-        partsScrollController.MoveToTarget(targetPosX);
+        partsScrollController.MoveToTarget(targetPosX, partType, itemName.text);
     }
 
     public void SetTarget(int _index)
     {
         index = _index;
         targetPosX = -318f - 100f * _index + 100f;
+    }
+
+    [Header("Color")]
+    public Color defaultColor;
+    public Color highlightColor;
+
+    public void HoverEnter()
+    {
+        this.gameObject.GetComponent<Image>().color = highlightColor;
+    }
+
+    public void HoverExit()
+    {
+        this.gameObject.GetComponent<Image>().color = defaultColor;
+    }
+
+    public void OnDisable()
+    {
+        this.gameObject.GetComponent<Image>().color = defaultColor;
     }
 }

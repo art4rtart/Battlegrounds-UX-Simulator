@@ -18,7 +18,7 @@ public class CyberPunkUIController : MonoBehaviour
     private static CyberPunkUIController instance;
 
     public Transform Handler;
-    public TextMeshProUGUI[] text;
+    public Image[] image;
 
     public TextMeshProUGUI weaponName;
     public TextMeshProUGUI weaponCurrentBullet;
@@ -38,7 +38,8 @@ public class CyberPunkUIController : MonoBehaviour
 
     private void Awake()
     {
-        if (this.gameObject.activeSelf) this.gameObject.SetActive(false);
+        // UI Edit Mode
+        //if (this.gameObject.activeSelf) this.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -52,7 +53,9 @@ public class CyberPunkUIController : MonoBehaviour
         weaponCurrentBullet.text = WeaponController.Instance.equippedGun.currentAmo.ToString();
         weaponTotalBullet.text = WeaponController.Instance.equippedGun.totalAmo.ToString();
 
-        weaponImage.sprite = WeaponController.Instance.equippedGun.weaponImage;
+        weaponImage.sprite = WeaponController.Instance.equippedGun.weaponImageInfoPanel;
+
+        StartCoroutine(PingPongAlpha());
     }
 
     private void OnDisable()
@@ -63,6 +66,23 @@ public class CyberPunkUIController : MonoBehaviour
             //partsScrollController[i].isPined = false;
             //partsScrollController[i].hoverText.SetActive(true);
             //partsScrollController[i].scrollview.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+    }
+
+    IEnumerator PingPongAlpha()
+    {
+        float alpha = 1f;
+
+        Color imageColor = image[0].color;
+
+        while (true)
+        {
+            for (int i = 0; i < image.Length; i++)
+            {
+                image[i].color = new Color(imageColor.r, imageColor.g, imageColor.b, alpha);
+            }
+            alpha = Mathf.PingPong(Time.time * 1f, 1f);
+            yield return null;
         }
     }
 }

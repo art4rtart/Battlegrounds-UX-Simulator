@@ -121,6 +121,7 @@ public class FirstPersonController : MonoBehaviour
         {
             moveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
         }
+
         m_CollisionFlags = characterController.Move(moveDir * Time.fixedDeltaTime);
 
         //ProgressStepCycle(speed);
@@ -240,6 +241,19 @@ public class FirstPersonController : MonoBehaviour
         Camera.main.transform.localPosition = Vector3.zero ;
         Camera.main.transform.localRotation = Quaternion.identity;
         Camera.main.transform.LookAt(target);
+    }
+
+    public void LockHeadMovement()
+    {
+        mouseManager.XSensitivity = 0f;
+        mouseManager.YSensitivity = 0f;
+    }
+
+
+    public void UnLockHeadMovement()
+    {
+        mouseManager.XSensitivity = 0.75f;
+        mouseManager.YSensitivity = 0.75f;
     }
 
     private void OnDisable()
