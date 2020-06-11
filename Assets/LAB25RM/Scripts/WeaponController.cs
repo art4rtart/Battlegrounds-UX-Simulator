@@ -134,6 +134,7 @@ public class WeaponController : MonoBehaviour
         item.AddItem(equippedGun);
         item.gameObject.SetActive(false);
         weaponAudioSource.PlayOneShot(gainClip);
+        InteractUIController.Instance.HideUI();
     }
 
     // by drag and drop

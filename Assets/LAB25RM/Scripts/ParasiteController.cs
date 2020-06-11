@@ -48,6 +48,7 @@ public class ParasiteController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (WaypointsManager.Instance == null) return;
         StopCoroutine();
         StartCoroutine(Movement());
     }
@@ -169,12 +170,13 @@ public class ParasiteController : MonoBehaviour
     public IEnumerator Dissolve(Material _material, float waitSeconds, float currentRate, float targetRate, bool dead)
     {
         if (dead) {
+            KillPointUIController.Instance.AddKillPoint("PARASITE RANGER", Random.Range(80, 100));
             agent.SetDestination(this.gameObject.transform.position);
             capsuleCollider.enabled = false;
             animator.SetBool("Die", true);
             agent.speed = 0f;
             agent.enabled = false;
-            parasiteItem.DropItem();
+            if(parasiteItem) parasiteItem.DropItem();
         }
         else {
         }

@@ -32,6 +32,10 @@ public class WeaponUIController : MonoBehaviour
     [Header("Animator")]
     public Animator weaponNameChangeAnimator;
 
+    [Header("CrossHair")]
+    public GameObject autoCrossHair;
+    public GameObject boltActionCrossHair;
+
     private void Start()
     {
         ChangeWeaponUI();
@@ -50,6 +54,8 @@ public class WeaponUIController : MonoBehaviour
     public void UpdateFireMode()
     {
         weaponFireModeText.text = WeaponController.Instance.auto == true ? "Auto" : "Bolt Action";
+        autoCrossHair.SetActive(WeaponController.Instance.auto);
+        boltActionCrossHair.SetActive(!WeaponController.Instance.auto);
     }
 
     public Color loadedTextColor;

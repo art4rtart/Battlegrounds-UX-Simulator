@@ -17,6 +17,7 @@ public class CameraShakeController : MonoBehaviour
     private static CameraShakeController instance;
 
     public CameraShake.Properties testProperties;
+
     public void CameraShake()
     {
         FindObjectOfType<CameraShake>().StartShake(testProperties);
