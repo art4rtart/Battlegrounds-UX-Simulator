@@ -56,7 +56,6 @@ public class CameraShake : MonoBehaviour
             transform.localPosition = Vector3.Lerp(previousWaypoint, currentWaypoint, movePercent);
             transform.localRotation = Quaternion.Slerp(previousRotation, targetRotation, movePercent);
 
-
             yield return null;
         } while (moveDistance > 0);
     }
