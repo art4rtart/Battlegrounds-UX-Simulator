@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialougeManager : MonoBehaviour
 {
-
     [TextArea(0,100)]
     public string[] sentencesENG;
 
     [TextArea(0, 100)]
     public string[] sentencesKOR;
+
+    public int sentenceIndex;
+
+    public CanvasGroup messageCanvasGroup;
+    public TextMeshProUGUI messageENGText;
+    public Text messageKORText;
 
     Animator animator;
     AudioSource audioSource;
@@ -18,17 +24,18 @@ public class DialougeManager : MonoBehaviour
     [Header("Clip Sounds")]
     public AudioClip[] audioClip;
 
-    // Start is called before the first frame update
+    public float messageFadeSpeed = 2f;
+
+    public float waitSecondsBeforeSceneChange = 5f;
+    public CanvasGroup timeCanvasGroup;
+    public float totalWaitTime = 10f;
+
+    public TextMeshProUGUI timeText;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void LockPlayerMovement()
@@ -55,16 +62,16 @@ public class DialougeManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public CanvasGroup messageCanvasGroup;
-
     public void ShowTutorialMessage()
     {
         StartCoroutine(ShowMessage());
     }
 
-    public float messageFadeSpeed = 2f;
     IEnumerator ShowMessage()
     {
+        messageENGText.text = sentencesENG[sentenceIndex];
+        messageKORText.text = sentencesKOR[sentenceIndex];
+        sentenceIndex++;
         yield return new WaitForSeconds(.5f);
         float value = 0;
 
@@ -78,7 +85,7 @@ public class DialougeManager : MonoBehaviour
 
         value = 1.25f;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         FadeOutSound();
         while (value > 0)
         {
@@ -89,13 +96,6 @@ public class DialougeManager : MonoBehaviour
 
         StartCoroutine(ShowTime());
     }
-
-
-    public float waitSecondsBeforeSceneChange = 5f;
-    public CanvasGroup timeCanvasGroup;
-    public float totalWaitTime = 10f;
-
-    public TextMeshProUGUI timeText;
 
     IEnumerator ShowTime()
     {
@@ -118,7 +118,6 @@ public class DialougeManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f);
         FadeOutSound();
         while (value > 0)
         {

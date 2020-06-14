@@ -33,7 +33,7 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(flag) StartCoroutine(LoadNextScnee(scenenumber));
+        if(flag) StartCoroutine(LoadNextScene(scenenumber));
     }
 
     IEnumerator LoadNextScnee(string _scenename)
@@ -44,7 +44,7 @@ public class SceneController : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator LoadNextScnee(int _scenenumber)
+    IEnumerator LoadNextScene(int _scenenumber)
     {
         yield return new WaitForSeconds(waitTime);
 
@@ -54,7 +54,7 @@ public class SceneController : MonoBehaviour
 
     public void LoadScene(int _sceneIndex)
     {
-        StartCoroutine(LoadNextScnee(_sceneIndex));
+        StartCoroutine(LoadNextScene(_sceneIndex));
     }
 
     public void LoadScene(string _SceneName)

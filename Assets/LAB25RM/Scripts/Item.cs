@@ -55,6 +55,7 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
+        if (!item) return;
         item.transform.position = this.transform.position + Vector3.up * item.transform.localScale.x * .5f;
         panel.transform.position = this.transform.position + Vector3.up * (item.transform.localScale.y+ .25f);
     }

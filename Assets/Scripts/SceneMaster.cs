@@ -23,6 +23,26 @@ public class SceneMaster : MonoBehaviour
         {
             SceneManager.LoadScene("Title");
         }
+
+       if(Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            //LoadLevel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            LoadLevel3();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            LoadLevel4();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            LoadLevel4();
+        }
     }
 
     public void LoadLevel1()
@@ -42,6 +62,21 @@ public class SceneMaster : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
+
+    public void LoadLevel4()
+    {
+        SceneManager.LoadScene("Level4");
+    }
+
+    public void LoadLevel5()
+    {
+        SceneManager.LoadScene("OurGame");
     }
 }

@@ -17,6 +17,7 @@ public class CrossHair : MonoBehaviour
 
     private void OnEnable()
     {
+        if (crossHairs.Length == 0) return;
         StopAllCoroutines();
         StartCoroutine(Recover(crossHairs));
     }
