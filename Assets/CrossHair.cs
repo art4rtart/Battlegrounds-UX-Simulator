@@ -7,15 +7,19 @@ public class CrossHair : MonoBehaviour
     [Header("15 ~ 55")]
     public Vector2 crossHairOffest;
 
-
     public float recoverySpeed;
-
 
     public RectTransform[] crossHairs;
     int[] dir;
 
 
     public Vector3[] originCrossHairs;
+
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Recover(crossHairs));
+    }
 
     private void Start()
     {
@@ -49,7 +53,7 @@ public class CrossHair : MonoBehaviour
 
     void MoveCrossHair()
     {
-        float addValue = 2.5f;
+        float addValue = 1.5f;
         Vector3 addVector = Vector3.zero;
 
         for (int i = 0; i < crossHairs.Length; i++)

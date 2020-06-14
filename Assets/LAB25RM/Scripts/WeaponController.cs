@@ -192,7 +192,7 @@ public class WeaponController : MonoBehaviour
         else if (Input.GetButtonUp("Fire2") && isReadyToFire && !isFiring && !isRunning && !isReloading) { Zoom(); if (isZooming) Zoom(); }
 
         // Relaod
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isInspecting && equippedGun.totalAmo > 0) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isZooming && !isInspecting && equippedGun.totalAmo > 0) Reload();
 
         // Inspect
         if (Input.GetKeyDown(KeyCode.T)) weaponAnimator.SetTrigger("Inspect");
@@ -261,6 +261,9 @@ public class WeaponController : MonoBehaviour
 
     public void Reload()
     {
+        if (auto) WeaponUIController.Instance.autoCrossHair.SetActive(false);
+        else WeaponUIController.Instance.boltActionCrossHair.SetActive(false);
+
         weaponAnimator.Play("Reload Out Of Ammo", 0, 0f);
 
         ReloadEffectCoroutine = ReloadEffect(.5f, 1f, weaponAnimator.GetCurrentAnimatorClipInfo(0).Length, equippedGun.magazineAmo);
@@ -337,6 +340,9 @@ public class WeaponController : MonoBehaviour
 
         yield return new WaitForSeconds(totalTime - takeOutTime - reloadTime - .5f);
         isReloading = false;
+
+        yield return new WaitForSeconds(.5f);
+        WeaponUIController.Instance.UpdateUI();
     }
 
     public void Zoom()

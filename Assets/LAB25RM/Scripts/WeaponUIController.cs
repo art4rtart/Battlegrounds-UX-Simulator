@@ -54,6 +54,8 @@ public class WeaponUIController : MonoBehaviour
     public void UpdateFireMode()
     {
         weaponFireModeText.text = WeaponController.Instance.auto == true ? "Auto" : "Bolt Action";
+
+        if (WeaponController.Instance.isReloading) return;
         autoCrossHair.SetActive(WeaponController.Instance.auto);
         boltActionCrossHair.SetActive(!WeaponController.Instance.auto);
     }
