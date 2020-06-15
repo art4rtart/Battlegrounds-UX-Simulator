@@ -66,6 +66,7 @@ public class CrossHair : MonoBehaviour
             addVector = (x != 0) ? Vector3.right : Vector3.up;
 
             crossHairs[i].localPosition += addVector * addValue * dir[i];
+            crossHairs[i].localPosition = Clamp(crossHairs[i].localPosition);
         }
     }
 
@@ -81,5 +82,13 @@ public class CrossHair : MonoBehaviour
             lerpSpeed += Time.deltaTime * recoverySpeed;
             yield return null;
         }
+    }
+
+    public Vector3 Clamp(Vector3 value)
+    {
+        value.x = Mathf.Clamp(value.x, -125f, 125f);
+        value.y = Mathf.Clamp(value.y, -125f, 125f);
+        value.z = Mathf.Clamp(value.z, -125f, 125f);
+        return value;
     }
 }

@@ -92,6 +92,7 @@ public class Weapon : MonoBehaviour
 
             muzzleFlash.Play();
 
+            WeaponController.Instance.weaponAudioSource.volume = .25f;
             WeaponController.Instance.weaponAudioSource.PlayOneShot(WeaponController.Instance.audioClip[audioIndex]);
 
             if (!isZooming) FireInfo(wepaonAnim, "Fire", new Vector2(recoilStrengthMinMax.x, recoilStrengthMinMax.x), muzzlePivotNormal.transform);

@@ -18,8 +18,18 @@ public class CyberPunkItemContent : MonoBehaviour
     public float index;
     public bool isEmpty;
 
+    [Header("Audio")]
+    AudioSource audiosource;
+    public AudioClip hoverSound;
+    public AudioClip selectSound;
+
+    [Header("Color")]
+    public Color defaultColor;
+    public Color highlightColor;
+
     private void Start()
     {
+        audiosource = GetComponent<AudioSource>();
         if (isEmpty) targetPosX = -318f;
         partsScrollController = this.transform.parent.GetComponent<PartsScrollController>();
     }
@@ -34,6 +44,8 @@ public class CyberPunkItemContent : MonoBehaviour
 
     public void ClickItem()
     {
+        audiosource.clip = selectSound;
+        audiosource.Play();
         partsScrollController.currentContent = this.gameObject.GetComponent<CyberPunkItemContent>();
         partsScrollController.MoveToTarget(targetPosX, partType, itemName.text);
     }
@@ -44,12 +56,10 @@ public class CyberPunkItemContent : MonoBehaviour
         targetPosX = -318f - 100f * _index + 100f;
     }
 
-    [Header("Color")]
-    public Color defaultColor;
-    public Color highlightColor;
-
     public void HoverEnter()
     {
+        //audiosource.clip = hoverSound;
+        //if(!audiosource.isPlaying) audiosource.Play();
         this.gameObject.GetComponent<Image>().color = highlightColor;
     }
 

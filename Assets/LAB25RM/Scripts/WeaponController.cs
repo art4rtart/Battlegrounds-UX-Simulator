@@ -133,6 +133,7 @@ public class WeaponController : MonoBehaviour
         }
         item.AddItem(equippedGun);
         item.gameObject.SetActive(false);
+        weaponAudioSource.volume = 1f;
         weaponAudioSource.PlayOneShot(gainClip);
         InteractUIController.Instance.HideUI();
     }
@@ -150,6 +151,7 @@ public class WeaponController : MonoBehaviour
         _item.AddItem(equippedGun);
         _item.gameObject.SetActive(false);
 
+        weaponAudioSource.volume = 1f;
         weaponAudioSource.PlayOneShot(gainClip);
     }
 
