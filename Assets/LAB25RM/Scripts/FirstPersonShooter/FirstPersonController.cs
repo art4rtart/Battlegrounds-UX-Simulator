@@ -21,9 +21,10 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Move")]
     [SerializeField] bool isWalking = false;
-    [SerializeField] float walkSpeed = 0;
-    [SerializeField] float runSpeed = 0;
-    [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
+	public float walkSpeed = 0;
+	public float runSpeed = 0;
+	public float moveSpeed = 1f;
+	[SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
     private Vector2 input;
 
     [Header("Mouse")]
@@ -55,12 +56,24 @@ public class FirstPersonController : MonoBehaviour
 
     [HideInInspector] public Transform target;
 
-    void Start()
+	[Header("AudioClips")]
+	AudioSource audioSource;
+	private float m_StepCycle;
+	private float m_NextStep;
+	private bool m_Jumping;
+	[SerializeField] private float m_StepInterval;
+	[SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+	[SerializeField] private AudioClip jumpSound;           // the sound played when character leaves the ground.
+	[SerializeField] private AudioClip landSound;           // the sound played when character touches back on ground.
+
+	void Start()
     {
         cam = Camera.main;
         characterController = GetComponent<CharacterController>();
+		audioSource = GetComponent<AudioSource>();
 
-        fovKick.Setup(cam);
+
+		fovKick.Setup(cam);
         originalCameraPos = cam.transform.localPosition;
         mouseManager.Init(this.transform, cam.transform);
     }
@@ -78,7 +91,7 @@ public class FirstPersonController : MonoBehaviour
         if (!m_PreviouslyGrounded && characterController.isGrounded)
         {
             StartCoroutine(jumpBob.DoBobCycle());
-            // PlayLandingSound();
+            PlayLandingSound();
             moveDir.y = 0f;
             jumping = false;
         }
@@ -104,7 +117,6 @@ public class FirstPersonController : MonoBehaviour
         moveDir.x = desiredMove.x * speed;
         moveDir.z = desiredMove.z * speed;
 
-
         if (characterController.isGrounded)
         {
             moveDir.y = -m_StickToGroundForce;
@@ -112,7 +124,7 @@ public class FirstPersonController : MonoBehaviour
             if (jump)
             {
                 moveDir.y = jumpSpeed;
-                //PlayJumpSound();
+                PlayJumpSound();
                 jump = false;
                 jumping = true;
             }
@@ -124,7 +136,7 @@ public class FirstPersonController : MonoBehaviour
 
         m_CollisionFlags = characterController.Move(moveDir * Time.fixedDeltaTime);
 
-        //ProgressStepCycle(speed);
+        ProgressStepCycle(speed, new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
         UpdateCameraPosition(speed);
         mouseManager.UpdateCursorLock();
     }
@@ -172,7 +184,24 @@ public class FirstPersonController : MonoBehaviour
         cam.transform.localPosition = newCameraPosition;
     }
 
-    void RotateView()
+	private void ProgressStepCycle(float speed, Vector2 m_Input)
+	{
+		if (characterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
+		{
+			m_StepCycle += (characterController.velocity.magnitude + (speed * (isWalking ? 1f : m_RunstepLenghten))) *
+						 Time.fixedDeltaTime;
+		}
+		if (!(m_StepCycle > m_NextStep))
+		{
+			return;
+		}
+
+		m_NextStep = m_StepCycle + m_StepInterval;
+
+		PlayFootStepAudio();
+	}
+
+	void RotateView()
     {
         mouseManager.LookRotation(this.transform, cam.transform);
     }
@@ -243,11 +272,40 @@ public class FirstPersonController : MonoBehaviour
         Camera.main.transform.LookAt(target);
     }
 
-    public void LockHeadMovement()
+	private void PlayFootStepAudio()
+	{
+		if (!characterController.isGrounded)
+		{
+			return;
+		}
+		// pick & play a random footstep sound from the array,
+		// excluding sound at index 0
+		int n = Random.Range(1, m_FootstepSounds.Length);
+		audioSource.clip = m_FootstepSounds[n];
+		audioSource.PlayOneShot(audioSource.clip);
+		// move picked sound to index 0 so it's not picked next time
+		m_FootstepSounds[n] = m_FootstepSounds[0];
+		m_FootstepSounds[0] = audioSource.clip;
+	}
+
+	private void PlayJumpSound()
+	{
+		audioSource.clip = jumpSound;
+		audioSource.Play();
+	}
+
+	private void PlayLandingSound()
+	{
+		audioSource.clip = landSound;
+		audioSource.Play();
+	}
+
+
+	public void LockHeadMovement()
     {
         mouseManager.XSensitivity = 0f;
         mouseManager.YSensitivity = 0f;
-    }
+	}
 
 
     public void UnLockHeadMovement()
@@ -256,7 +314,13 @@ public class FirstPersonController : MonoBehaviour
         mouseManager.YSensitivity = 0.75f;
     }
 
-    private void OnDisable()
+	private void OnEnable()
+	{
+		audioSource = GetComponent<AudioSource>();
+		audioSource.enabled = true;
+	}
+
+	private void OnDisable()
     {
         if (!DieVignette) return;
         DieVignette.SetFloat("_HitHardness", 0);

@@ -6,6 +6,17 @@ using TMPro;
 
 public class DialougeManager : MonoBehaviour
 {
+    public static DialougeManager Instance
+    {
+        get
+        {
+            if (instance != null) return instance;
+            instance = FindObjectOfType<DialougeManager>();
+            return instance;
+        }
+    }
+    private static DialougeManager instance;
+
     [TextArea(0,100)]
     public string[] sentencesENG;
 
@@ -18,7 +29,7 @@ public class DialougeManager : MonoBehaviour
     public TextMeshProUGUI messageENGText;
     public Text messageKORText;
 
-    Animator animator;
+    [HideInInspector] public Animator animator;
     AudioSource audioSource;
 
     [Header("Clip Sounds")]
@@ -31,6 +42,8 @@ public class DialougeManager : MonoBehaviour
     public float totalWaitTime = 10f;
 
     public TextMeshProUGUI timeText;
+
+    public string levelName;
 
     void Start()
     {
@@ -48,6 +61,10 @@ public class DialougeManager : MonoBehaviour
     {
         FirstPersonController.Instance.enabled = true;
         WeaponController.Instance.enabled = true;
+
+        WeaponController.Instance.animators[WeaponController.Instance.previousGunIndex].SetBool("Holster", false);
+        WeaponController.Instance.weaponAudioSource.clip = WeaponController.Instance.audioClip[2];
+        WeaponController.Instance.weaponAudioSource.Play();
     }
 
     public void FadeInSound()
@@ -85,7 +102,7 @@ public class DialougeManager : MonoBehaviour
 
         value = 1.25f;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         FadeOutSound();
         while (value > 0)
         {
@@ -131,6 +148,6 @@ public class DialougeManager : MonoBehaviour
 
     public void MoveToNextScene()
     {
-        SceneController.Instance.LoadScene("Level2");
+        SceneController.Instance.LoadScene(levelName);
     }
 }

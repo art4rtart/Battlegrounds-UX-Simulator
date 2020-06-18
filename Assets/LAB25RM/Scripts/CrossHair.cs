@@ -52,9 +52,9 @@ public class CrossHair : MonoBehaviour
         // shift = recovery speed up
     }
 
+	public float addValue = 1.5f;
     void MoveCrossHair()
     {
-        float addValue = 1.5f;
         Vector3 addVector = Vector3.zero;
 
         for (int i = 0; i < crossHairs.Length; i++)

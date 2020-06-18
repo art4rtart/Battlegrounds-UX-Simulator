@@ -65,8 +65,16 @@ public class WeaponUIController : MonoBehaviour
 
     public void ChangeWeaponCountTextColor(float _currentAmo)
     {
-        if (_currentAmo <= currentWeapon.magazineAmo * 0.3f) currentAmoText.color = lowTextColor;
-        else currentAmoText.color = loadedTextColor;
+		if (_currentAmo <= currentWeapon.magazineAmo * 0.3f)
+		{
+			WeaponController.Instance.reloadAnim.SetBool("ReloadAlert", true);
+			currentAmoText.color = lowTextColor;
+		}
+		else
+		{
+			WeaponController.Instance.reloadAnim.SetBool("ReloadAlert", false);
+			currentAmoText.color = loadedTextColor;
+		}
     }
 
     public void ChangeWeaponUI()
@@ -93,9 +101,10 @@ public class WeaponUIController : MonoBehaviour
     {
         if (currentWeapon.weaponType == WeaponType.AK) currentWeapon.totalAmo = WeaponController.Instance.akBulletTotal;
         else if (currentWeapon.weaponType == WeaponType.HandGun) currentWeapon.totalAmo = WeaponController.Instance.hgBulletTotal;
+        else if (currentWeapon.weaponType == WeaponType.NoSafety) currentWeapon.totalAmo = WeaponController.Instance.nsBulletTotal;
 
         StartCoroutine(UIAnimation(currentWeapon.currentAmo, currentWeapon.totalAmo,
-    WeaponController.Instance.grenadeCount, WeaponController.Instance.flashBangCount));
+        WeaponController.Instance.grenadeCount, WeaponController.Instance.flashBangCount));
     }
 
     public bool isUIAnimPlaying;

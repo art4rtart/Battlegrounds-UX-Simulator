@@ -22,6 +22,9 @@ public class ParasiteController : MonoBehaviour
     Parasite parasite;
     ParasiteItemDropper parasiteItem;
 
+    bool movement = false;
+    public bool dead;
+
     private void Awake()
     {
         parasite = FindObjectOfType<Parasite>();
@@ -38,19 +41,19 @@ public class ParasiteController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         capsuleCollider.enabled = false;
 
-        biteBloodParticle.Stop();
+        if(biteBloodParticle) biteBloodParticle.Stop();
     }
 
     private void Start()
     {
-        StartCoroutine(Movement());
+        if(!movement) StartCoroutine(Movement());
     }
 
     private void OnEnable()
     {
         if (WaypointsManager.Instance == null) return;
         StopCoroutine();
-        StartCoroutine(Movement());
+        if (!movement) StartCoroutine(Movement());
     }
 
     private void Update()
@@ -65,6 +68,7 @@ public class ParasiteController : MonoBehaviour
 
     IEnumerator Movement()
     {
+        movement = true;
         float updateRate = 0f, timer = 0, timerRefresh = 3f;
         int randomIndex = Random.Range(0, WaypointsManager.Instance.totalWaypoints);
 
@@ -72,17 +76,19 @@ public class ParasiteController : MonoBehaviour
         StartCoroutine(Dissolve(material, 0f, material.GetFloat("_Dissolved"), 0f, false));
 
         animator.SetInteger("ZombieType", zombieIndex);
-
-        while (true) {
-            if(!capsuleCollider.enabled) capsuleCollider.enabled = true;
+        if (!capsuleCollider.enabled) capsuleCollider.enabled = true;
+        while (true)
+        {
+            if (!foundTarget && timer == 0) SetAgentDestination(randomIndex);
             timer += Time.deltaTime;
 
-            if (timer > timerRefresh) {
+            if (timer > timerRefresh)
+            {
                 randomIndex = Random.Range(0, WaypointsManager.Instance.totalWaypoints);
                 timer = 0f;
             }
 
-            if (!agent.pathPending && !foundTarget) SetAgentDestination(randomIndex);
+            if (!agent.pathPending && !foundTarget && timer == 0) SetAgentDestination(randomIndex);
 
             if (foundTarget) break;
 
@@ -167,10 +173,11 @@ public class ParasiteController : MonoBehaviour
         }
     }
 
-    public IEnumerator Dissolve(Material _material, float waitSeconds, float currentRate, float targetRate, bool dead)
+    public IEnumerator Dissolve(Material _material, float waitSeconds, float currentRate, float targetRate, bool _dead)
     {
-        if (dead) {
-            KillPointUIController.Instance.AddKillPoint("PARASITE RANGER", Random.Range(80, 100));
+        dead = _dead;
+        if (_dead) {
+            KillPointUIController.Instance.AddKillPoint("PARASTIE RANGER", Random.Range(80, 100));
             agent.SetDestination(this.gameObject.transform.position);
             capsuleCollider.enabled = false;
             animator.SetBool("Die", true);
@@ -194,14 +201,16 @@ public class ParasiteController : MonoBehaviour
             yield return null;
         }
 
-        if (dead) InitParasiteData();
+        if (_dead) InitParasiteData();
     }
 
     void InitParasiteData()
     {
         agent.enabled = true;
-        parent.GetComponent<RePoolObjectH>().repoolAfterTime = true;
-        parent.GetComponent<RePoolObjectH>().BeginDestroy();
+        if (parent.GetComponent<RePoolObjectH>()) {
+            parent.GetComponent<RePoolObjectH>().repoolAfterTime = true;
+            parent.GetComponent<RePoolObjectH>().BeginDestroy();
+        }
 
         parasite.damagedRate = 0f;
         material.SetFloat("_Dirtiness", parasite.damagedRate);
@@ -212,5 +221,6 @@ public class ParasiteController : MonoBehaviour
         agent.speed = 1.5f;
 
         foundTarget = false;
+        movement = false;
     }
 }

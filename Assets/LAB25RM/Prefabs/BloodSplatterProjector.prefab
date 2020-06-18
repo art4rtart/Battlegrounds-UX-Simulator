@@ -49,7 +49,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: 15402bcd0e7bbbb46904de6fa0d46c8a, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
 --- !u!1 &6234171885836676785
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6234171885836676785}
-  m_LocalRotation: {x: 0.042069536, y: 0.70585424, z: -0.70585424, w: 0.042069536}
+  m_LocalRotation: {x: 0.7028738, y: -0.07725527, z: 0.07725527, w: 0.7028738}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

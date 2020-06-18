@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
     public float recoilStrength = 1f;
 
     public float damageRate = 25f;
-    public float shootRange = 1000f;
+    public float shootRange = 2000f;
 
     [Header("Bullet Penetration Settings")]
     public bool bulletPenetration;
@@ -92,7 +92,6 @@ public class Weapon : MonoBehaviour
 
             muzzleFlash.Play();
 
-            WeaponController.Instance.weaponAudioSource.volume = .25f;
             WeaponController.Instance.weaponAudioSource.PlayOneShot(WeaponController.Instance.audioClip[audioIndex]);
 
             if (!isZooming) FireInfo(wepaonAnim, "Fire", new Vector2(recoilStrengthMinMax.x, recoilStrengthMinMax.x), muzzlePivotNormal.transform);
@@ -112,7 +111,9 @@ public class Weapon : MonoBehaviour
             RaycastHit[] entryHits = Physics.RaycastAll(cam.position, cam.forward, shootRange, layersToHit).OrderBy(h => h.distance).ToArray();
 
             Parasite parasite = entryHits[0].transform.GetComponent<Parasite>();
-            if(parasite != null) parasite.ApplyDamage(damageRate);
+            SniperTurret sniperTurret = entryHits[0].transform.GetComponent<SniperTurret>();
+            if (parasite != null) parasite.ApplyDamage(damageRate);
+            if (sniperTurret != null) sniperTurret.ApplyDamage(damageRate);
 
             for (int i = 0; i < entryHits.Length; i++)
             {

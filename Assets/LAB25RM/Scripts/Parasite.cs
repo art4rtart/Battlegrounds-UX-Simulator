@@ -25,7 +25,7 @@ public class Parasite : MonoBehaviour
     private void Start()
     {
         parasiteController = GetComponent<ParasiteController>();
-        parasiteController.zombieIndex = (int)character.zombieType + 1;
+        // parasiteController.zombieIndex = (int)character.zombieType + 1;
         material = parasiteController.material;
     }
 
@@ -37,7 +37,8 @@ public class Parasite : MonoBehaviour
 
     public void ApplyDamage(float weaponDamage)
     {
-        if (character.health < 0) return;
+        Debug.Log("ApplyDamage");
+        if (character.health <= 0) return;
         if(!parasiteController.foundTarget) parasiteController.foundTarget = true;
 
         character.health -= weaponDamage;

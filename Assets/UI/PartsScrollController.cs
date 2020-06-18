@@ -126,7 +126,7 @@ public class PartsScrollController : MonoBehaviour
         // play sound
 
         // equip effect
-        if(partsImage.sprite != null && currentContent.itemPartsSprite != null) partsImage.sprite = currentContent.itemPartsSprite;
+        partsImage.sprite = currentContent.itemPartsSprite;
     }
 
     public Image partsImage;

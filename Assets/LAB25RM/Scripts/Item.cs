@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public enum ItemType { None, M4, AK, HandGun, Grenade, FlashBang, Parts };
+public enum ItemType { None, M4, AK, HandGun, Grenade, FlashBang, Parts, NoSafety };
 public enum PartsType { None, Muzzle, Handle, Magazine, Reverse, Scope };
 public class Item : MonoBehaviour
 {
@@ -73,6 +73,10 @@ public class Item : MonoBehaviour
                 WeaponController.Instance.hgBulletTotal += quantity;
                 if (weapon.weaponType == WeaponType.HandGun) useUIAnimation = true;
                 break;
+            case ItemType.NoSafety:
+                WeaponController.Instance.nsBulletTotal += quantity;
+                if (weapon.weaponType == WeaponType.NoSafety) useUIAnimation = true;
+                break;
             case ItemType.Grenade:
                 WeaponController.Instance.grenadeCount += quantity;
                 break;
@@ -97,6 +101,10 @@ public class Item : MonoBehaviour
             case ItemType.HandGun:
                 WeaponController.Instance.hgBulletTotal -= quantity;
                 if (weapon.weaponType == WeaponType.HandGun) useUIAnimation = true;
+                break;
+            case ItemType.NoSafety:
+                WeaponController.Instance.nsBulletTotal -= quantity;
+                if (weapon.weaponType == WeaponType.NoSafety) useUIAnimation = true;
                 break;
             case ItemType.Grenade:
                 WeaponController.Instance.grenadeCount -= quantity;

@@ -6,6 +6,7 @@ Shader "her0in/Custom/GlowCircle" {
 	Properties{
 		_Color("Main Color", Color) = (1,1,1,1)
 		_ShadowTex("Cookie", 2D) = "" {}
+		_Intensity("Intensity", float) = 0
 	}
 
 		Subshader{
@@ -41,6 +42,7 @@ Shader "her0in/Custom/GlowCircle" {
 				}
 
 				fixed4 _Color;
+				fixed _Intensity;
 				sampler2D _ShadowTex;
 
 				fixed4 frag(v2f i) : SV_Target
@@ -55,7 +57,7 @@ Shader "her0in/Custom/GlowCircle" {
 					}
 
 					fixed4 texS = tex2Dproj(_ShadowTex, UNITY_PROJ_COORD(half4(d, 0, i.uvShadow.zw)));
-					texS.rgb *= _Color.rgb;
+					texS.rgb *= _Color.rgb * _Intensity;
 					texS.a = 1.0 - texS.a;
 
 					UNITY_APPLY_FOG_COLOR(i.fogCoord, texS, fixed4(0,0,0,0));

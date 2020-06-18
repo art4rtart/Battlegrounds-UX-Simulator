@@ -19,7 +19,7 @@ public class ParasiteGenerator : MonoBehaviour
     void GenerateParasite()
     {
         GameObject parasite = ObjectPoolerH.instance.GetPooledObject("Parasite");
-        parasite.transform.position = spawnPos[Random.Range(0, spawnPos.Length)].position;
+        parasite.transform.position = spawnPos[Random.Range(0, spawnPos.Length)].localPosition;
         parasite.transform.rotation = Quaternion.identity;
         parasite.SetActive(true);
     }

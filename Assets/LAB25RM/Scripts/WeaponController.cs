@@ -28,6 +28,7 @@ public class WeaponController : MonoBehaviour
     [Header("Throwing Objects")]
     public float akBulletTotal;
     public float hgBulletTotal;
+    public float nsBulletTotal;
     public int grenadeCount;
     public int flashBangCount;
 
@@ -49,8 +50,10 @@ public class WeaponController : MonoBehaviour
     [Header("Reload")]
     public bool isReloading;
     public bool isInspecting;
+	public Animator reloadAnim;
+	public float reloadSpeed = 1f;
 
-    [Header("Weapon Sway")]
+	[Header("Weapon Sway")]
     [Tooltip("Toggle weapon sway.")]
     public bool weaponSway;
     public float swayAmount = 0.02f;
@@ -68,9 +71,14 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public AudioSource weaponAudioSource;
     public AudioClip[] audioClip;
     public AudioClip gainClip;
+	public AudioClip[] reloadSound;
     int audioClipIndex;
 
-    void Awake()
+	[Header("Sound")]
+	public AudioClip normalSound;
+	public AudioClip silenceSound;
+
+	void Awake()
     {
         if (equippedGun == null) equippedGun = startingGun[currentGunIndex - 1];
         weaponAnimator = this.transform.GetChild(currentGunIndex-1).GetComponent<Animator>();
@@ -133,7 +141,7 @@ public class WeaponController : MonoBehaviour
         }
         item.AddItem(equippedGun);
         item.gameObject.SetActive(false);
-        weaponAudioSource.volume = 1f;
+
         weaponAudioSource.PlayOneShot(gainClip);
         InteractUIController.Instance.HideUI();
     }
@@ -151,7 +159,6 @@ public class WeaponController : MonoBehaviour
         _item.AddItem(equippedGun);
         _item.gameObject.SetActive(false);
 
-        weaponAudioSource.volume = 1f;
         weaponAudioSource.PlayOneShot(gainClip);
     }
 
@@ -263,12 +270,12 @@ public class WeaponController : MonoBehaviour
 
     public void Reload()
     {
-        if (auto) WeaponUIController.Instance.autoCrossHair.SetActive(false);
+		if (auto) WeaponUIController.Instance.autoCrossHair.SetActive(false);
         else WeaponUIController.Instance.boltActionCrossHair.SetActive(false);
 
         weaponAnimator.Play("Reload Out Of Ammo", 0, 0f);
 
-        ReloadEffectCoroutine = ReloadEffect(.5f, 1f, weaponAnimator.GetCurrentAnimatorClipInfo(0).Length, equippedGun.magazineAmo);
+		ReloadEffectCoroutine = ReloadEffect(.5f, 1f, weaponAnimator.GetCurrentAnimatorClipInfo(0).Length, equippedGun.magazineAmo);
         StartCoroutine(ReloadEffectCoroutine);
 
         // Sound
@@ -339,6 +346,7 @@ public class WeaponController : MonoBehaviour
 
         if (equippedGun.weaponType == WeaponType.AK) akBulletTotal = equippedGun.totalAmo;
         else if (equippedGun.weaponType == WeaponType.HandGun) hgBulletTotal = equippedGun.totalAmo;
+        else if (equippedGun.weaponType == WeaponType.NoSafety) nsBulletTotal = equippedGun.totalAmo;
 
         yield return new WaitForSeconds(totalTime - takeOutTime - reloadTime - .5f);
         isReloading = false;

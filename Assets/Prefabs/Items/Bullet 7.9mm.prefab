@@ -511,7 +511,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3266722110700865544}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
@@ -536,6 +536,7 @@ MonoBehaviour:
   partType: 0
   item: {fileID: 3266722110052636243}
   itemImage: {fileID: 21300000, guid: db85377b1501e8c4ab56442f3659b82e, type: 3}
+  itemPartsImage: {fileID: 0}
   name: 7.79mm Ammo
   itemUseType: Ammo
   tag: Item
