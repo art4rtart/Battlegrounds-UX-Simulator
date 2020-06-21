@@ -34,7 +34,6 @@ public class PartSlot : MonoBehaviour
         {
             panel.color = targetPanelColor;
             isDropable = true;
-            // add in equippeed
         }
         else { panel.color = defaultPanelColor; isDropable = false; }
         UIController.Instance.isHoveringWeaponSlot = true;
@@ -86,7 +85,10 @@ public class PartSlot : MonoBehaviour
 
                 WeaponController.Instance.equippedGun.partsController.WeaponCustomize((int)UIController.Instance.targetItem.partType, this.transform.GetChild(0).GetComponent<BGItemContent>().item.name);
                 ItemDetector.Instance.equippedItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-            }
+
+
+				PartsAdd(currentContent.item.name);
+			}
             else
             {
                 ItemDetector.Instance.equippedItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
@@ -95,18 +97,22 @@ public class PartSlot : MonoBehaviour
                 {
                     this.transform.GetChild(0).GetComponent<BGItemContent>().item.gameObject.SetActive(true);
                     ItemDetector.Instance.groundItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-                }
+					ItemDetector.Instance.UpdateGroundItem();
+				}
                 else if (currentContent.currentList == CurrentList.Inventory)
                 {
                     ItemDetector.Instance.inventoryItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-                }
+					ItemDetector.Instance.UpdateInventoryItems();
+				}
 
                 currentContent = UIController.Instance.selectedContent;
                 this.transform.GetChild(0).GetComponent<BGItemContent>().item = currentContent.item;
                 this.transform.GetChild(0).GetComponent<BGItemContent>().itemImagePanel.sprite =
                     UIController.Instance.pickedItem.transform.GetChild(1).GetComponent<Image>().sprite;
 
-                if (currentContent.currentList == CurrentList.Ground)
+				PartsAdd(currentContent.item.name);
+
+				if (currentContent.currentList == CurrentList.Ground)
                 {
                     this.transform.GetChild(0).GetComponent<BGItemContent>().item.gameObject.SetActive(false);
                     ItemDetector.Instance.groundItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
@@ -118,11 +124,8 @@ public class PartSlot : MonoBehaviour
 
                 WeaponController.Instance.equippedGun.partsController.WeaponCustomize((int)UIController.Instance.targetItem.partType, this.transform.GetChild(0).GetComponent<BGItemContent>().item.name);
                 ItemDetector.Instance.equippedItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-
-                ItemDetector.Instance.UpdateGroundItem();
-                ItemDetector.Instance.UpdateInventoryItems();
             }
-            UIController.Instance.pickedItem = null;
+			UIController.Instance.pickedItem = null;
             UIController.Instance.selectedContent = null;
         }
     }
@@ -130,7 +133,6 @@ public class PartSlot : MonoBehaviour
     public void SlotPointerDown()
     {
         UIController.Instance.selectedContent = currentContent;
-        Debug.Log(currentContent.item);
         UIController.Instance.originParent = this.transform;
         UIController.Instance.selectedContent.contentParent = this.transform;
 
@@ -142,7 +144,7 @@ public class PartSlot : MonoBehaviour
         UIController.Instance.pickedItem.transform.position = Input.mousePosition - new Vector3(UIController.Instance.pickedItem.transform.GetComponent<RectTransform>().sizeDelta.x * .5f, 0, 0);
 
         UIController.Instance.targetItem = currentContent.item;
-    }
+	}
 
     public void SlotDrag()
     {
@@ -179,11 +181,13 @@ public class PartSlot : MonoBehaviour
             ItemDetector.Instance.UpdateGroundItem();
             ItemDetector.Instance.UpdateInventoryItems();
 
-            currentContent = null;
+			PartsAdd("Empty");
+
+			currentContent = null;
 
             this.transform.GetChild(0).gameObject.SetActive(false);
 
-            isEmpty = true; 
+			isEmpty = true; 
         }
 
         else if (Input.mousePosition.x > inventoryPosition.x - inventorySize.x && inventoryPosition.x + inventorySize.x > Input.mousePosition.x
@@ -199,11 +203,35 @@ public class PartSlot : MonoBehaviour
             ItemDetector.Instance.UpdateGroundItem();
             ItemDetector.Instance.UpdateInventoryItems();
 
-            currentContent = null;
+			PartsAdd("Empty");
+
+			currentContent = null;
 
             this.transform.GetChild(0).gameObject.SetActive(false);
 
-            isEmpty = true;
+			isEmpty = true;
         }
     }
+
+	void PartsAdd(string partsName)
+	{
+		switch (currentContent.item.partType)
+		{
+			case PartsType.Scope:
+				PartsAddController.Instance.SetScope(partsName);
+				break;
+			case PartsType.Muzzle:
+				PartsAddController.Instance.SetMuzzle(partsName);
+				break;
+			case PartsType.Magazine:
+				PartsAddController.Instance.SetMagazine(partsName);
+				break;
+			case PartsType.Reverse:
+				PartsAddController.Instance.SetStock(partsName);
+				break;
+			case PartsType.Handle:
+				PartsAddController.Instance.SetHandle(partsName);
+				break;
+		}
+	}
 }
