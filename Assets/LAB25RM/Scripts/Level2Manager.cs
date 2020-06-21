@@ -15,57 +15,67 @@ public class Level2Manager : MonoBehaviour
     public WaypointsManager[] wayPointsManager;
 
 	public Animator successMessage;
+	public Animator dangerMessage;
 
     int index;
-
-    private void Start()
+	CustomState customState;
+	private void Start()
     {
         for(int i = 0; i < wayPointsManager.Length; i++) wayPointsManager[i].enabled = true;
         StartCoroutine(Scenario());
-    }
+		customState = FindObjectOfType<CustomState>();
+	}
 
     IEnumerator Scenario()
     {
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(11f);
         DoorController.Instance.OpenDoor();
-        InstructionController.Instance.animator.SetTrigger("Show");
+		InstructionController.Instance.audioSource.Play();
+		InstructionController.Instance.animator.SetTrigger("Show");
 
         yield return new WaitForSeconds(.5f);
 
         while (index < partsSet.Length)
         {
-            while (!partsSet[index].isEmpty) yield return null;
-            InstructionController.Instance.UpdateInstructions();
+			while (!partsSet[index].isEmpty) yield return null;
+			MissionRate.Instance.UpdateMissionClearRate();
+			InstructionController.Instance.UpdateInstructions();
 
-            // customize
-            GetCurrentCustomization();
+			customState.UpdateCustomState(false);
+			GetCurrentCustomization();
             PartsScrollView.Instance.ShowTargetCustomization();
             yield return new WaitForSeconds(1.25f);
             PartsScrollView.Instance.canvasGroup.alpha = 1f;
-            Debug.Log("Customize Updated");
 
-            // set Target customization
             SetTargetCustomization();
-
             while (!PartsAddController.Instance.CurrentParts(indexes, count)) {
                 PartsAddController.Instance.ShowCurrentParts(); yield return null; }
 			successMessage.SetTrigger("Show");
+			customState.UpdateCustomState(true);
 			PartsScrollView.Instance.canvasGroup.alpha = 0f;
 
             DoorController.Instance.OpenDoor();
             InstructionController.Instance.UpdateInstructions();
 
-            wayPointsManager[index].enabled = true;
-            for (int i = 0; i < emenySet[index].transform.childCount; i++)
+
+			yield return new WaitForSeconds(1.5f);
+			dangerMessage.SetTrigger("Show");
+			wayPointsManager[index].enabled = true;
+			emenySet[index].gameObject.SetActive(true);
+			for (int i = 0; i < emenySet[index].transform.childCount; i++)
             {
                 emenySet[index].transform.GetChild(i).GetComponent<NavMeshAgent>().speed = 1.5f;
                 emenySet[index].transform.GetChild(i).GetComponent<Animator>().SetInteger("ZombieType", 1);
-            }
+				emenySet[index].transform.GetChild(i).GetChild(1).GetComponent<ParasiteController>().foundTarget = true;
+			}
 
-            while (!emenySet[index].isEmtpy) yield return null;
-            DoorController.Instance.OpenDoor();
+			while (!emenySet[index].isEmtpy) { yield return null; }
+			MissionRate.Instance.UpdateMissionClearRate();
+
+			DoorController.Instance.OpenDoor();
             InstructionController.Instance.UpdateInstructions();
-            index++;
+			customState.HideCustomState();
+			index++;
         }
     }
 
@@ -85,8 +95,6 @@ public class Level2Manager : MonoBehaviour
         indexes[2] = PartsAddController.Instance.magazineIndex;
         indexes[3] = PartsAddController.Instance.stockIndex;
         indexes[4] = PartsAddController.Instance.scopeIndex;
-
-        Debug.Log("current : " + indexes[0] + " " + indexes[1] + " " + indexes[2] + " " + indexes[3] + " " + indexes[4]);
     }
 
     int count = 0;

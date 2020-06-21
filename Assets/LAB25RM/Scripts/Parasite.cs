@@ -15,7 +15,7 @@ public class Parasite : MonoBehaviour
     Material material;
 
     [HideInInspector] public RePoolObjectH repoolObject;
-
+	public bool isGenerated;
     private void OnEnable()
     {
         repoolObject = this.transform.parent.GetComponent<RePoolObjectH>();
@@ -25,7 +25,7 @@ public class Parasite : MonoBehaviour
     private void Start()
     {
         parasiteController = GetComponent<ParasiteController>();
-        // parasiteController.zombieIndex = (int)character.zombieType + 1;
+        if(isGenerated) parasiteController.zombieIndex = (int)character.zombieType + 1;
         material = parasiteController.material;
     }
 

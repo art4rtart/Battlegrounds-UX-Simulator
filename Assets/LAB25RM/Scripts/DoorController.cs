@@ -20,6 +20,7 @@ public class DoorController : MonoBehaviour
     public int doorIndex = -1;
 
     AudioSource audiosource;
+	public bool isOpened;
 
     private void Start()
     {
@@ -40,12 +41,14 @@ public class DoorController : MonoBehaviour
 
     IEnumerator OpenDoor(Transform _door)
     {
-        audiosource.Play();
+		isOpened = false;
+		audiosource.Play();
         while (_door.position.y > -4.9f)
         {
             _door.position -= Vector3.up * Time.deltaTime * 4f;
             doors[doorIndex].position = _door.position;
             yield return null;
         }
-    }
+		isOpened = true;
+	}
 }

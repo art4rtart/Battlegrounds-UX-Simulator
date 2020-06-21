@@ -13,36 +13,6 @@ public class SceneMaster : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         LoadingObject = this.transform.GetChild(0).gameObject;
-
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Title");
-        }
-
-       if(Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            //LoadLevel();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            LoadLevel3();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            LoadLevel4();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            LoadLevel4();
-        }
     }
 
     public void LoadLevel1()

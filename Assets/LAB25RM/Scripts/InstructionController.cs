@@ -49,7 +49,7 @@ public class InstructionController : MonoBehaviour
     public void UpdateInstructions()
     {
         StartCoroutine(UpdateInstruction());
-    }
+	}
 
     IEnumerator UpdateInstruction()
     {

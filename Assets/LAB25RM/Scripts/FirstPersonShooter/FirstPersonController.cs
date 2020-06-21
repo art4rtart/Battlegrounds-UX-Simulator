@@ -149,7 +149,7 @@ public class FirstPersonController : MonoBehaviour
         bool waswalking = isWalking;
         isWalking = !Input.GetKey(KeyCode.LeftShift);
 
-        speed = isWalking ? walkSpeed : runSpeed;
+        speed = isWalking || WeaponController.Instance.isReloading ? walkSpeed : runSpeed;
         input = new Vector2(horizontal, vertical);
 
         if (input.sqrMagnitude > 1) input.Normalize();
@@ -262,6 +262,8 @@ public class FirstPersonController : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
+		PauseMenuController.Instance.gameObject.SetActive(false);
 
         // Rag Doll active
         ragDoll.transform.position = this.transform.position;

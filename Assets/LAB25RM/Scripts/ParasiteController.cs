@@ -12,8 +12,8 @@ public class ParasiteController : MonoBehaviour
     [HideInInspector] public Transform target;
     public bool foundTarget;
 
-    NavMeshAgent agent;
-    Animator animator;
+    [HideInInspector] public NavMeshAgent agent;
+	[HideInInspector] public Animator animator;
     CapsuleCollider capsuleCollider;
 
     FirstPersonController player;
@@ -24,6 +24,8 @@ public class ParasiteController : MonoBehaviour
 
     bool movement = false;
     public bool dead;
+
+	AudioSource audioSource;
 
     private void Awake()
     {
@@ -39,7 +41,9 @@ public class ParasiteController : MonoBehaviour
         animator = this.gameObject.transform.parent.GetComponent<Animator>();
         agent = parent.GetComponent<NavMeshAgent>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        capsuleCollider.enabled = false;
+		audioSource = GetComponent<AudioSource>();
+
+		capsuleCollider.enabled = false;
 
         if(biteBloodParticle) biteBloodParticle.Stop();
     }
@@ -51,6 +55,8 @@ public class ParasiteController : MonoBehaviour
 
     private void OnEnable()
     {
+		if (parasite.isGenerated) return;
+
         if (WaypointsManager.Instance == null) return;
         StopCoroutine();
         if (!movement) StartCoroutine(Movement());
@@ -95,8 +101,9 @@ public class ParasiteController : MonoBehaviour
             yield return new WaitForSeconds(updateRate);
         }
 
-        // run
-        animator.SetTrigger("Run");
+		// run
+		audioSource.Play();
+		animator.SetTrigger("Run");
         agent.speed = 10f;
 
         while (!player.isDead && agent.enabled && agent.isOnNavMesh && agent.remainingDistance > agent.stoppingDistance)
@@ -222,5 +229,5 @@ public class ParasiteController : MonoBehaviour
 
         foundTarget = false;
         movement = false;
-    }
+	}
 }

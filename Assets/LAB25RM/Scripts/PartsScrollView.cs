@@ -48,7 +48,7 @@ public class PartsScrollView : MonoBehaviour
 
     public void ShowTargetCustomization()
     {
-        for (int i = 0; i < spriteQuantity[spriteQuantityIndex]; i++)
+		for (int i = 0; i < spriteQuantity[spriteQuantityIndex]; i++)
         {
             customSprites.Add(spritePack[0]);
             spritePack.RemoveAt(0);

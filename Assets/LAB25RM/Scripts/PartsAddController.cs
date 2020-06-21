@@ -46,23 +46,26 @@ public class PartsAddController : MonoBehaviour
 
         switch (_name)
         {
-            case "Empty":
+            case "Emtpy":
+				Scopes[scopeImageIndex].SetActive(false);
 				scopeIndex = -1;
-                break;
+				break;
             case "2x Scope":
                 scopeImageIndex = 0;
 				scopeIndex = 0;
+				Scopes[scopeImageIndex].SetActive(true);
 				break;
             case "4x Scope":
                 scopeImageIndex = 1;
 				scopeIndex = 1;
+				Scopes[scopeImageIndex].SetActive(true);
 				break;
             case "8x Scope":
                 scopeImageIndex = 2;
 				scopeIndex = 2;
+				Scopes[scopeImageIndex].SetActive(true);
 				break;
         }
-        if (scopeImageIndex >= 0) Scopes[scopeImageIndex].SetActive(true);
     }
 
     public void SetMuzzle(string _name)
@@ -82,7 +85,8 @@ public class PartsAddController : MonoBehaviour
 		switch (_name)
         {
             case "Empty":
-                muzzleIndex = -1;
+				Muzzles[muzzleIndex].SetActive(false);
+				muzzleIndex = -1;
 				break;
 
             case "Silencer":
@@ -117,7 +121,8 @@ public class PartsAddController : MonoBehaviour
 		switch (_name)
         {
             case "Empty":
-                handleIndex = -1;
+				Handles[handleIndex].SetActive(false);
+				handleIndex = -1;
                 break;
             case "Vertical Handle":
                 handleIndex = 0;
@@ -143,7 +148,8 @@ public class PartsAddController : MonoBehaviour
 		switch (_name)
         {
             case "Empty":
-                stockIndex = -1;
+				Stocks[stockIndex].SetActive(false);
+				stockIndex = -1;
                 break;
             case "Light Stock":
                 stockIndex = 0;
@@ -213,7 +219,6 @@ public class PartsAddController : MonoBehaviour
 
     public bool CurrentParts(int[] indexes, int _count)
     {
-        Debug.Log(_count);
         bool value = false;
         if(_count == 1)
         {
@@ -285,13 +290,11 @@ public class PartsAddController : MonoBehaviour
         }
 
         //Debug.Log(value);
-
-        if(!value) { Debug.Log("Current : " + indexes[0] + " " + indexes[1] + " " + indexes[2] + " " + indexes[3] + " " + indexes[4] + " "); }
         return value;
     }
 
     public void ShowCurrentParts()
     {
-        Debug.Log(muzzleIndex + " " + handleIndex + " " + magazineIndex  + " " + stockIndex  + " " + scopeImageIndex);
+        //Debug.Log(muzzleIndex + " " + handleIndex + " " + magazineIndex  + " " + stockIndex  + " " + scopeImageIndex);
     }
 }
