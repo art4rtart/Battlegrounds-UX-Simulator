@@ -217,7 +217,7 @@ public class ProfileManager : MonoBehaviour
         animator.enabled = true;
         animator.SetTrigger("LoginFadeOut");
 
-		yield return new WaitForSeconds(2.5f);
+		yield return new WaitForSeconds(2f);
 		surveyPanel.ShowSurveyPanel();
 	}
 
