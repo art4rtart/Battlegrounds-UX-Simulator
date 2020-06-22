@@ -37,7 +37,6 @@ public class Parasite : MonoBehaviour
 
     public void ApplyDamage(float weaponDamage)
     {
-        Debug.Log("ApplyDamage");
         if (character.health <= 0) return;
         if(!parasiteController.foundTarget) parasiteController.foundTarget = true;
 

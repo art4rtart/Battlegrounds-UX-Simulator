@@ -11594,8 +11594,8 @@ MonoBehaviour:
 
     <size=17.5><color=#FF3D3D>GET USE TO WEAPONS AND ITEMS.</size></color>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5bd3a52d74eda044caeff5eb5ba21bb8, type: 2}
-  m_sharedMaterial: {fileID: 958135945414386737, guid: 5bd3a52d74eda044caeff5eb5ba21bb8,
+  m_fontAsset: {fileID: 11400000, guid: 901776db736a4084a81f16775492a07b, type: 2}
+  m_sharedMaterial: {fileID: -7703066398648278927, guid: 901776db736a4084a81f16775492a07b,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

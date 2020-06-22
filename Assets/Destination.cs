@@ -17,6 +17,7 @@ public class Destination : MonoBehaviour
     public bool arrived;
 
 	public bool tutorial;
+	bool openCircle;
 
     private void Awake()
     {
@@ -25,10 +26,14 @@ public class Destination : MonoBehaviour
         material = projector.material;
         originSize = projector.orthographicSize;
         if(!tutorial) projector.orthographicSize = 0f;
-    }
+		sCollider.enabled = false;
+		material.SetColor("_Color", ExitColor);
+	}
 
     private void OnTriggerStay(Collider other)
     {
+		if (!openCircle) return;
+
         if (other.gameObject.CompareTag("Player"))
         {
 			arrived = true;
@@ -37,9 +42,9 @@ public class Destination : MonoBehaviour
 			if (tutorial) return;
 			for (int i = 0; i < enemyChecker.transform.childCount; i++)
             {
-                CapsuleCollider cCollider = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<CapsuleCollider>();
-                cCollider.enabled = true;
-                SkinnedMeshRenderer skinnedMesh = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<SkinnedMeshRenderer>();
+				CapsuleCollider cCollider = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<CapsuleCollider>();
+				cCollider.enabled = true;
+				SkinnedMeshRenderer skinnedMesh = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<SkinnedMeshRenderer>();
                 skinnedMesh.materials[1].SetFloat("_Dissolved", 0f);
             }
 		}
@@ -47,6 +52,8 @@ public class Destination : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+		if (!openCircle) return;
+		if (!arrived) return;
 		if (other.gameObject.CompareTag("Player"))
         {
 			material.SetColor("_Color", ExitColor);
@@ -54,9 +61,9 @@ public class Destination : MonoBehaviour
 			if (tutorial) return;
             for (int i = 0; i < enemyChecker.transform.childCount; i++)
             {
-                CapsuleCollider cCollider = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<CapsuleCollider>();
-                cCollider.enabled = false;
-                SkinnedMeshRenderer skinnedMesh = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<SkinnedMeshRenderer>();
+				CapsuleCollider cCollider = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<CapsuleCollider>();
+				cCollider.enabled = false;
+				SkinnedMeshRenderer skinnedMesh = enemyChecker.transform.GetChild(i).GetChild(1).GetComponent<SkinnedMeshRenderer>();
                 skinnedMesh.materials[1].SetFloat("_Dissolved", 1f);
             }
         }
@@ -73,9 +80,11 @@ public class Destination : MonoBehaviour
 
         while (value < originSize)
         {
-            value += Time.deltaTime * 2f;
+            value += Time.deltaTime * 3f;
             projector.orthographicSize = value;
             yield return null;
         }
-    }
+		openCircle = true;
+		sCollider.enabled = true;
+	}
 }

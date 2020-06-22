@@ -41,6 +41,7 @@ public class Goal : MonoBehaviour
     {
         float value = projector.orthographicSize;
 
+		PlayerInfoManager.Instance.SceneCompleted();
         DialougeManager.Instance.animator.SetTrigger("FadeOut");
         DialougeManager.Instance.levelName = nextLevel;
 

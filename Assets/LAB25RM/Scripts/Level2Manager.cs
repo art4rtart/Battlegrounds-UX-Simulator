@@ -66,7 +66,7 @@ public class Level2Manager : MonoBehaviour
             {
                 emenySet[index].transform.GetChild(i).GetComponent<NavMeshAgent>().speed = 1.5f;
                 emenySet[index].transform.GetChild(i).GetComponent<Animator>().SetInteger("ZombieType", 1);
-				emenySet[index].transform.GetChild(i).GetChild(1).GetComponent<ParasiteController>().foundTarget = true;
+				//emenySet[index].transform.GetChild(i).GetChild(1).GetComponent<ParasiteController>().foundTarget = true;
 			}
 
 			while (!emenySet[index].isEmtpy) { yield return null; }

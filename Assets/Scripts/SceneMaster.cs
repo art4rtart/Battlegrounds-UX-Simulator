@@ -26,7 +26,9 @@ public class SceneMaster : MonoBehaviour
 
     public void LoadLevel2()
     {
-        animator.SetTrigger("Load");
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		animator.SetTrigger("Load");
         sceneName = "Level1";
     }
 

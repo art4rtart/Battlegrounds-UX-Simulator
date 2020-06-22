@@ -192,6 +192,9 @@ public class ProfileManager : MonoBehaviour
         button.transform.GetChild(0).GetComponent<Image>().color = deactivateColor;
         button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = deactivateColor;
 
+
+		string sex = man.isOn ? "남성(man)" : "여성(woman)";
+		PlayerInfoManager.Instance.SavePlayerData(nameInput.text, ageInput.text, sex);
         StartCoroutine(ShowSelectSceneUI());
     }
 

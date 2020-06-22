@@ -8,7 +8,6 @@ public class SurveyPanel : MonoBehaviour
 {
 	Animator animator;
 
-
 	public TextMeshProUGUI sliderValueText;
 	public Slider slider;
 	public InputField elseInputField;
@@ -30,23 +29,83 @@ public class SurveyPanel : MonoBehaviour
 	public Color defaultColor;
 	public Color highLightColor;
 
+	Material material;
+
+	List<string> playedGames = new List<string>();
+	string playerSkilled;
+
+	string _game1 = "배틀그라운드";
+	string _game2 = "콜오브듀티:워존";
+	string _game3 = "포트나이트";
+	string _game4 = "기타 : ";
 
 	private void Awake()
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
 		animator = GetComponent<Animator>();
+		elseInputField.interactable = false;
 	}
 
 	public void ShowSurveyPanel()
 	{
 		animator.SetTrigger("Show");
+
+		material = GetComponent<Image>().material;
+		StartCoroutine(FadeInBlur());
 	}
 
 	public void SummitSurvey()
 	{
 		// data save
+		string _played = played ? "플레이 경험이 있음" : "플레이 경험이 없음";
+		string _game = "";
+		string _playerSkilled = playerSkilled + " : " + (slider.value * 100f).ToString("N0");
+
+		Debug.Log(playedGames.Count);
+		for(int i = 0; i < playedGames.Count; i++)
+		{
+			_game += playedGames[i].ToString();
+			if(i != playedGames.Count - 1) _game += ", ";
+		}
+
+		string elseGame = elseInputField.text;
+		if (elseGame != "") {
+			if (playedGames.Count == 0)
+				_game += elseGame;
+			else
+				_game += ", " + elseGame;
+		}
+
+		if(played) PlayerInfoManager.Instance.SavePlayerSurveyData(_played, _game, _playerSkilled);
+		else PlayerInfoManager.Instance.SavePlayerSurveyData(_played, _played, _played);
 
 		animator.SetTrigger("Hide");
+		material = GetComponent<Image>().material;
+		StartCoroutine(FadeOutBlur());
+	}
+
+	IEnumerator FadeOutBlur()
+	{
+		float value = material.GetFloat("_Size"); ;
+
+		while(value > 0)
+		{
+			value -= Time.deltaTime * 2f;
+			material.SetFloat("_Size", value);
+			yield return null;
+		}
+	}
+
+	IEnumerator FadeInBlur()
+	{
+		float value = 0f;
+
+		while (value < 2.5f)
+		{
+			value += Time.deltaTime * 2f;
+			material.SetFloat("_Size", value);
+			yield return null;
+		}
 	}
 
 	public void Played()
@@ -93,18 +152,24 @@ public class SurveyPanel : MonoBehaviour
 	{
 		valueChanged = true;
 		battleground = !battleground;
+		if (battleground) playedGames.Add(_game1);
+		else playedGames.Remove(_game1);
 	}
 
 	public void PlayedWarzone()
 	{
 		valueChanged = true;
 		warzone = !warzone;
+		if (warzone) playedGames.Add(_game2);
+		else playedGames.Remove(_game2);
 	}
 
 	public void PlayedFortnite()
 	{
 		valueChanged = true;
 		fortnite = !fortnite;
+		if (fortnite) playedGames.Add(_game3);
+		else playedGames.Remove(_game3);
 	}
 
 	public void PlayedElse()
@@ -112,6 +177,7 @@ public class SurveyPanel : MonoBehaviour
 		valueChanged = true;
 		elseplayed = !elseplayed;
 		if (elseplayed) elseInputField.interactable = true;
+		else elseInputField.interactable = false;
 	}
 
 	int colorTextIndex;
@@ -126,26 +192,26 @@ public class SurveyPanel : MonoBehaviour
 		//	levelTexts[i].color = defaultColor;
 		//}
 
-		//if (0 <= value && value < 20)
-		//{
-		//	levelTexts[0].color = highLightColor;
-		//}
+		if (0 <= value && value < 20)
+		{
+			playerSkilled = "최하 (Newb)";
+		}
 
-		//else if (20 < value && value < 40)
-		//{
-		//	levelTexts[1].color = highLightColor;
-		//}
-		//else if(40 < value && value < 60)
-		//{
-		//	levelTexts[2].color = highLightColor;
-		//}
-		//else if(60 < value && value < 80)
-		//{
-		//	levelTexts[3].color = highLightColor;
-		//}
-		//else if (80 < value && value <= 100)
-		//{
-		//	levelTexts[4].color = highLightColor;
-		//}
+		else if (20 < value && value < 40)
+		{
+			playerSkilled = "하 (low class)";
+		}
+		else if (40 < value && value < 60)
+		{
+			playerSkilled = "중 (Intermediate)";
+		}
+		else if (60 < value && value < 80)
+		{
+			playerSkilled = "상 (Advance)";
+		}
+		else if (80 < value && value <= 100)
+		{
+			playerSkilled = "최상 (Expert)";
+		}
 	}
 }
