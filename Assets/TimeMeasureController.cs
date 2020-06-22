@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class TimeMeasureController : MonoBehaviour
 {
-    public float totalGameTime;
+	public static TimeMeasureController Instance { get; private set; }
+
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else Destroy(gameObject);
+	}
+
+	public float totalGameTime;
     public float customizationTime;
 
+	public float[] customTime = new float[3];
 
-    bool count = false;
+    bool totalCustomizationTime = false;
     bool goal = false;
-
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {
@@ -23,9 +31,9 @@ public class TimeMeasureController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            count = !count;
+            totalCustomizationTime = !totalCustomizationTime;
         }
 
-        if (count) customizationTime += Time.deltaTime;
+        if (totalCustomizationTime) customizationTime += Time.deltaTime;
     }
 }

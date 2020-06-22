@@ -128,7 +128,7 @@ public class PartsAddController : MonoBehaviour
                 handleIndex = 0;
 				WeaponController.Instance.equippedGun.kickMinMax = new Vector2(.25f, .25f);
 				break;
-            case "Ankle Handle":
+            case "Angle Handle":
 				WeaponController.Instance.equippedGun.recoilStrengthMinMax = new Vector2(1, .5f);
 				handleIndex = 1;
                 break;

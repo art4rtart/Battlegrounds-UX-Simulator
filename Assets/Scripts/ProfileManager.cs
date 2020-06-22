@@ -37,15 +37,49 @@ public class ProfileManager : MonoBehaviour
     public Color hoverEnterColor;
     public Color hoverExitColor;
 
+	public Button battlegroundButton;
+	public Button cyberneticButton;
+
     public bool isRegistered = false;
 
     public Animator animator;
-	public SurveyPanel surveyPanel;
+	public SurveyPanel surveyPanelBefore;
+	public SurveyPanel surveyPanelAfter;
+
+	public AudioClip selectClip;
+	public AudioClip hoverClip;
+	[HideInInspector] public AudioSource audioSource;
 
 	private void Start()
     {
-        BlinkInputField();
-    }
+		audioSource = GetComponent<AudioSource>();
+
+		BlinkInputField();
+		PlayerInfoUpdate();
+	}
+
+	void PlayerInfoUpdate()
+	{
+		PlayerInfoManager.Instance.TitleUpdate();
+		PlayerInfoManager.Instance.isTitled = true;
+		if (PlayerInfoManager.Instance.AfterSurvey())
+		{
+			surveyPanelBefore.gameObject.SetActive(false);
+			surveyPanelAfter.gameObject.SetActive(true);
+			surveyPanelAfter.GetComponent<Animator>().SetTrigger("Show");
+		}
+
+		if (PlayerInfoManager.Instance.isFinishedOurGame)
+		{
+			cyberneticButton.interactable = false;
+			cyberneticButton.GetComponent<Animator>().enabled = false;
+		}
+		else if (PlayerInfoManager.Instance.isFinishedBattleground)
+		{
+			battlegroundButton.interactable = false;
+			battlegroundButton.GetComponent<Animator>().enabled = false;
+		}
+	}
 
     public void Check()
     {
@@ -119,7 +153,7 @@ public class ProfileManager : MonoBehaviour
 
 	public void ToggleValueChanged()
     {
-        isAgreed = !isAgreed;
+		isAgreed = !isAgreed;
         Color _targetColor = isAgreed ? activateColor : deactivateColor;
         button.transform.GetChild(0).GetComponent<Image>().color = _targetColor;
         button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = _targetColor;
@@ -187,7 +221,8 @@ public class ProfileManager : MonoBehaviour
 
     public void ButtonClicked()
     {
-        isRegistered = true;
+		audioSource.PlayOneShot(selectClip);
+		isRegistered = true;
         button.interactable = false;
         button.transform.GetChild(0).GetComponent<Image>().color = deactivateColor;
         button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = deactivateColor;
@@ -221,7 +256,7 @@ public class ProfileManager : MonoBehaviour
         animator.SetTrigger("LoginFadeOut");
 
 		yield return new WaitForSeconds(2f);
-		surveyPanel.ShowSurveyPanel();
+		if(surveyPanelBefore.gameObject.activeSelf) surveyPanelBefore.ShowSurveyPanel();
 	}
 
     IEnumerator TextFader()

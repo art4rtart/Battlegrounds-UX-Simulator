@@ -425,7 +425,7 @@ MonoBehaviour:
   itemType: 6
   partType: 1
   item: {fileID: 8296172667742808465}
-  itemImage: {fileID: 21300000, guid: 6699b50217a1df04eb48d258ee13f0b2, type: 3}
+  itemImage: {fileID: 21300000, guid: e59e7c55bfd2fdb4887a3059476c2a14, type: 3}
   itemPartsImage: {fileID: 21300000, guid: 0c96ab87ff7cdea4dbadd930a792c9b7, type: 3}
   name: Silencer
   itemUseType: AR Parts

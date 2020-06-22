@@ -39,8 +39,11 @@ public class SurveyPanel : MonoBehaviour
 	string _game3 = "포트나이트";
 	string _game4 = "기타 : ";
 
+	public SceneMaster sceneMaster;
+
 	private void Awake()
 	{
+		sceneMaster = FindObjectOfType<SceneMaster>();
 		canvasGroup = GetComponent<CanvasGroup>();
 		animator = GetComponent<Animator>();
 		elseInputField.interactable = false;
@@ -56,12 +59,13 @@ public class SurveyPanel : MonoBehaviour
 
 	public void SummitSurvey()
 	{
+		ProfileManager.Instance.audioSource.PlayOneShot(ProfileManager.Instance.selectClip);
+
 		// data save
 		string _played = played ? "플레이 경험이 있음" : "플레이 경험이 없음";
 		string _game = "";
 		string _playerSkilled = playerSkilled + " : " + (slider.value * 100f).ToString("N0");
 
-		Debug.Log(playedGames.Count);
 		for(int i = 0; i < playedGames.Count; i++)
 		{
 			_game += playedGames[i].ToString();
@@ -213,5 +217,12 @@ public class SurveyPanel : MonoBehaviour
 		{
 			playerSkilled = "최상 (Expert)";
 		}
+	}
+
+	public void SummitAfterSurvey()
+	{
+		// Load to credit
+		sceneMaster.LoadCredit();
+		PlayerInfoManager.Instance.SavePlayerSurveyDataAfterGame();
 	}
 }

@@ -112,7 +112,6 @@ public class Weapon : MonoBehaviour
 
             Parasite parasite = entryHits[0].transform.GetComponent<Parasite>();
             SniperTurret sniperTurret = entryHits[0].transform.GetComponent<SniperTurret>();
-			Debug.Log(entryHits[0].transform.name);
             if (parasite != null) parasite.ApplyDamage(damageRate);
             if (sniperTurret != null) sniperTurret.ApplyDamage(damageRate);
 

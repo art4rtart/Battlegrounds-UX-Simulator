@@ -21,7 +21,7 @@ public class Level2Manager : MonoBehaviour
 	CustomState customState;
 	private void Start()
     {
-        for(int i = 0; i < wayPointsManager.Length; i++) wayPointsManager[i].enabled = true;
+        for(int i = 0; i < wayPointsManager.Length; i++) wayPointsManager[i].enabled = false;
         StartCoroutine(Scenario());
 		customState = FindObjectOfType<CustomState>();
 	}
@@ -49,7 +49,10 @@ public class Level2Manager : MonoBehaviour
 
             SetTargetCustomization();
             while (!PartsAddController.Instance.CurrentParts(indexes, count)) {
-                PartsAddController.Instance.ShowCurrentParts(); yield return null; }
+                PartsAddController.Instance.ShowCurrentParts();
+				TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
+				yield return null;
+			}
 			successMessage.SetTrigger("Show");
 			customState.UpdateCustomState(true);
 			PartsScrollView.Instance.canvasGroup.alpha = 0f;
@@ -64,8 +67,8 @@ public class Level2Manager : MonoBehaviour
 			emenySet[index].gameObject.SetActive(true);
 			for (int i = 0; i < emenySet[index].transform.childCount; i++)
             {
-                emenySet[index].transform.GetChild(i).GetComponent<NavMeshAgent>().speed = 1.5f;
-                emenySet[index].transform.GetChild(i).GetComponent<Animator>().SetInteger("ZombieType", 1);
+				emenySet[index].transform.GetChild(i).GetComponent<NavMeshAgent>().speed = 1.5f;
+				emenySet[index].transform.GetChild(i).GetComponent<Animator>().SetInteger("ZombieType", 1);
 				//emenySet[index].transform.GetChild(i).GetChild(1).GetComponent<ParasiteController>().foundTarget = true;
 			}
 
@@ -75,6 +78,7 @@ public class Level2Manager : MonoBehaviour
 			DoorController.Instance.OpenDoor();
             InstructionController.Instance.UpdateInstructions();
 			customState.HideCustomState();
+			wayPointsManager[index].enabled = false;
 			index++;
         }
     }

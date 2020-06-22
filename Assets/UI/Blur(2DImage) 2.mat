@@ -34,6 +34,6 @@ Material:
     m_Floats:
     - _BumpAmt: 128
     - _Radius: 7
-    - _Size: -0.008841089
+    - _Size: 2.51402
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

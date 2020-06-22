@@ -58,10 +58,11 @@ public class Level3Manager : MonoBehaviour
 			yield return new WaitForSeconds(.75f);
             PartsScrollView.Instance.canvasGroup.alpha = 1f;
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(8f);
 			successMessage.gameObject.SetActive(false);
 			dangerMessage.SetTrigger("Show");
 			enemySet[index].gameObject.SetActive(true);
+
             for (int i = 0; i < enemySet[index].transform.childCount; i++)
             {
                 enemySet[index].transform.GetChild(i).GetComponent<NavMeshAgent>().speed = 1.5f;
@@ -74,6 +75,8 @@ public class Level3Manager : MonoBehaviour
             float damageRate = WeaponController.Instance.equippedGun.damageRate;
             while (!enemySet[index].isEmtpy)
             {
+				TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
+
 				if (!PartsAddController.Instance.CurrentPartsLevel3(indexes, count))
 				{
 					WeaponController.Instance.equippedGun.damageRate = 0f;
@@ -84,6 +87,9 @@ public class Level3Manager : MonoBehaviour
 				}
                 yield return null;
             }
+
+			//Temp
+			TimeMeasureController.Instance.customTime[index] += 5f;
 
 			PartsScrollView.Instance.canvasGroup.alpha = 0f;
             InstructionController.Instance.UpdateInstructions();

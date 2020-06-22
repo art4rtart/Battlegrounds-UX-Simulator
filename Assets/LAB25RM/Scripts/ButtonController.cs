@@ -47,7 +47,7 @@ public class ButtonController : MonoBehaviour
 
     public void MousePointerClick()
     {
-        clicked = true;
+		clicked = true;
         Cursor.visible = false;
         StopAllCoroutines();
         StartCoroutine(TitleSceneController.Instance.FadeOut());

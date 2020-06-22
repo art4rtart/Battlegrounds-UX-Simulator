@@ -26,14 +26,31 @@ public class PlayerInfoManager : MonoBehaviour
 	public string playerGames;      // 플레이 해본 게임
 	public string playerSkilled;        // 숙련도
 
-	public bool isPlayedBattleground;
-	public bool isPlayedOurGame;
+	public bool isFinishedBattleground;
+	public bool isFinishedOurGame;
+
+	public bool isTitled;
+
+	[Header("Our Game Level2")]
+	public float level2TotalPlayTime;
+	public float level2TotalTabTime;
+	public float[] level2CustomTime = new float[3];
+
+	[Header("Our Game Level3")]
+	public float level3TotalPlayTime;
+	public float level3TotalTabTime;
+	public float[] level3CustomTime = new float[3];
 
 	public void SavePlayerSurveyData(string _playerHasPlayed, string _playerGames, string _playerSkilled)
 	{
 		playerHasPlayed = _playerHasPlayed;
 		playerGames = _playerGames;
 		playerSkilled = _playerSkilled;
+	}
+
+	public void SavePlayerSurveyDataAfterGame()
+	{
+
 	}
 
 	public void SavePlayerData(string _playerName, string _playerAge, string _playerSex)
@@ -46,8 +63,44 @@ public class PlayerInfoManager : MonoBehaviour
 	public void SceneCompleted()
 	{
 		Scene scene = SceneManager.GetActiveScene();
-		Debug.Log(scene.name);
+
+		if (scene.name == "Level2")
+		{
+			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
+			{
+				level2CustomTime[i] = TimeMeasureController.Instance.customTime[i];
+			}
+			level2TotalPlayTime = TimeMeasureController.Instance.totalGameTime;
+			level2TotalTabTime = TimeMeasureController.Instance.customizationTime;
+		}
 		if (scene.name == "Level3")
-			isPlayedOurGame = true;
+		{
+			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
+			{
+				level3CustomTime[i] = TimeMeasureController.Instance.customTime[i];
+			}
+			level3TotalPlayTime = TimeMeasureController.Instance.totalGameTime;
+			level3TotalTabTime = TimeMeasureController.Instance.customizationTime;
+		}
+
+		if (scene.name == "Level3") isFinishedBattleground = true;
+		else if (scene.name == "BGLevel3") isFinishedOurGame = true;
+	}
+
+	public bool AfterSurvey()
+	{
+		bool value = isFinishedBattleground || isFinishedOurGame? true: false;
+
+		return value;
+	}
+
+	public void TitleUpdate()
+	{
+		if (!isTitled) return;
+		CursorController cursorController = FindObjectOfType<CursorController>();
+		Animator animator = cursorController.gameObject.GetComponent<Animator>();
+		ProfileManager.Instance.surveyPanelBefore.gameObject.SetActive(false);
+		animator.Play("PipelineFadeInAnim");
+		cursorController.ShowCursor();
 	}
 }

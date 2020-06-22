@@ -278,7 +278,7 @@ MonoBehaviour:
   itemType: 6
   partType: 5
   item: {fileID: 8296172668138719085}
-  itemImage: {fileID: 21300000, guid: 4ed01a73d6ade0f4ba7ee0ab4ac21313, type: 3}
+  itemImage: {fileID: 21300000, guid: 98b73299162b1bb44b5adee5ad9815fb, type: 3}
   itemPartsImage: {fileID: 21300000, guid: 372c23e39f688124f8693fc1a4835848, type: 3}
   name: 4x Scope
   itemUseType: AR Parts

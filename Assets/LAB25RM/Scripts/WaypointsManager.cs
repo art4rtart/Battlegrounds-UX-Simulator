@@ -29,4 +29,9 @@ public class WaypointsManager : MonoBehaviour
             waypoints.Add(this.transform.GetChild(i).transform);
         }
     }
+
+	private void Start()
+	{
+		
+	}
 }

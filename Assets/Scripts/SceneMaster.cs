@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
-    Animator animator;
+	public static SceneMaster Instance { get; private set; }
+
+	Animator animator;
     GameObject LoadingObject;
     public string sceneName;
 
@@ -34,7 +36,7 @@ public class SceneMaster : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(sceneName);
     }
 
     public void LoadLevel3()
@@ -51,4 +53,12 @@ public class SceneMaster : MonoBehaviour
     {
         SceneManager.LoadScene("OurGame");
     }
+
+	public void LoadCredit()
+	{
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		animator.SetTrigger("Load");
+		sceneName = "Credit";
+	}
 }
