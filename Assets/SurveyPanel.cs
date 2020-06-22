@@ -43,7 +43,6 @@ public class SurveyPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		sceneMaster = FindObjectOfType<SceneMaster>();
 		canvasGroup = GetComponent<CanvasGroup>();
 		animator = GetComponent<Animator>();
 		elseInputField.interactable = false;
@@ -217,12 +216,5 @@ public class SurveyPanel : MonoBehaviour
 		{
 			playerSkilled = "최상 (Expert)";
 		}
-	}
-
-	public void SummitAfterSurvey()
-	{
-		// Load to credit
-		sceneMaster.LoadCredit();
-		PlayerInfoManager.Instance.SavePlayerSurveyDataAfterGame();
 	}
 }

@@ -44,7 +44,7 @@ public class ProfileManager : MonoBehaviour
 
     public Animator animator;
 	public SurveyPanel surveyPanelBefore;
-	public SurveyPanel surveyPanelAfter;
+	public GameObject surveyPanelAfter;
 
 	public AudioClip selectClip;
 	public AudioClip hoverClip;
@@ -65,8 +65,9 @@ public class ProfileManager : MonoBehaviour
 		if (PlayerInfoManager.Instance.AfterSurvey())
 		{
 			surveyPanelBefore.gameObject.SetActive(false);
-			surveyPanelAfter.gameObject.SetActive(true);
+			surveyPanelAfter.SetActive(true);
 			surveyPanelAfter.GetComponent<Animator>().SetTrigger("Show");
+			Debug.Log(surveyPanelAfter.gameObject.activeSelf);
 		}
 
 		if (PlayerInfoManager.Instance.isFinishedOurGame)

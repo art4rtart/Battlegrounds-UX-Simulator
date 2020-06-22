@@ -9,13 +9,25 @@ using UnityEngine;
 
 public class SendEmail : MonoBehaviour
 {
-    private void Update()
+	public static SendEmail Instance { get; private set; }
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else Destroy(gameObject);
+	}
+
+	private void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
             OnButtonClick();
         }
     }
+
     public void OnButtonClick()
     {
         MailMessage mail = new MailMessage();
@@ -25,17 +37,17 @@ public class SendEmail : MonoBehaviour
         mail.To.Add("sq7r9760@naver.com"); // 받는 사람
         mail.To.Add("her0in941018@gmail.com"); // 받는 사람
 
-        mail.Subject = "Test Mail";
+        mail.Subject = PlayerInfoManager.Instance.playerName + "으로 부터 메일이 도착하였습니다.";
 
-        mail.Body = "This is for testing SMTP mail from GMAIL";
+        mail.Body = "실험 데이터를 보내드립니다.";
 
 
-        // 첨부파일 - 대용량은 안됨.
-        //System.Net.Mail.Attachment attachment;
-        //attachment = new System.Net.Mail.Attachment("D:\\Test\\2018-06-11-09-03-17-E7104.mp4"); // 경로 및 파일 선택
-        //mail.Attachments.Add(attachment);
+		// 첨부파일 - 대용량은 안됨.
+		System.Net.Mail.Attachment attachment;
+		attachment = new System.Net.Mail.Attachment(PlayerInfoManager.Instance.filePath); // 경로 및 파일 선택
+		mail.Attachments.Add(attachment);
 
-        SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+		SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
         smtpServer.Port = 587;
         smtpServer.Credentials = new System.Net.NetworkCredential("her0in941018@gmail.com", "chldnwls9760") as ICredentialsByHost; // 보내는사람 주소 및 비밀번호 확인
         smtpServer.EnableSsl = true;
