@@ -12465,7 +12465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da210b5a97d253547a025e5b03de80dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: BGLevel2
+  nextLevel: ReworkedLevel2BG
   goal: 0
 --- !u!135 &200620527
 SphereCollider:
@@ -44509,7 +44509,7 @@ MonoBehaviour:
   timeCanvasGroup: {fileID: 17614438}
   totalWaitTime: 15
   timeText: {fileID: 17614439}
-  levelName: Level2
+  levelName: ReworkedLevel2BG
 --- !u!95 &1081679759
 Animator:
   serializedVersion: 3

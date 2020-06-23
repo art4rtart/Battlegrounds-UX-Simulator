@@ -29,7 +29,6 @@ public class ButtonAnimation : MonoBehaviour
 	public string sceneName;
 	public void OnClickButton()
 	{
-		Debug.Log(sceneMaster);
 		sceneMaster.LoadLevel(sceneName);
 	}
 }

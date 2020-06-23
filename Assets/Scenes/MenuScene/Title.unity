@@ -5839,6 +5839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d536cf150a20479ab24f31a49a831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneMaster: {fileID: 0}
   sceneName: Level1
 --- !u!1 &361838177
 GameObject:
@@ -9501,7 +9502,7 @@ Transform:
   - {fileID: 1033773159}
   - {fileID: 1198960849}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599551660
 MonoBehaviour:
@@ -24594,7 +24595,7 @@ RectTransform:
   - {fileID: 549831101}
   - {fileID: 213303708}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26078,7 +26079,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1445204732
 GameObject:
@@ -33212,6 +33213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d536cf150a20479ab24f31a49a831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneMaster: {fileID: 0}
   sceneName: BGLevel1
 --- !u!1 &1684877823
 GameObject:
@@ -38695,7 +38697,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2048184012
 MonoBehaviour:

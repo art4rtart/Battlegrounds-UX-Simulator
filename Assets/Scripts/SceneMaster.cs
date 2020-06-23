@@ -74,6 +74,5 @@ public class SceneMaster : MonoBehaviour
 		GetComponent<Animator>().ResetTrigger("Load");
 		animator.SetTrigger("Load");
 		sceneName = _sceneName;
-		Debug.Log("Load Level");
 	}
 }

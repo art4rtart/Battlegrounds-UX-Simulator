@@ -26,4 +26,4 @@ Material:
     m_Floats:
     - _Intensity: 2.5
     m_Colors:
-    - _Color: {r: 1, g: 0.5601646, b: 0.1568627, a: 1}
+    - _Color: {r: 0.15686274, g: 1, b: 0.22419827, a: 1}
