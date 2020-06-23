@@ -67,6 +67,8 @@ public class PlayerInfoManager : MonoBehaviour
 	string source = ""; //읽어낸 텍스트 할당받는 변수
 	public string filePath = "";
 
+	public float mouseSensitivity;
+
 	public void SavePlayerSurveyData(string _playerHasPlayed, string _playerGames, string _playerSkilled)
 	{
 		playerHasPlayed = _playerHasPlayed;
@@ -110,7 +112,7 @@ public class PlayerInfoManager : MonoBehaviour
 			level2TotalPlayTime = TimeMeasureController.Instance.totalGameTime;
 			level2TotalTabTime = TimeMeasureController.Instance.customizationTime;
 		}
-		if (scene.name == "Level3")
+		else if (scene.name == "Level3")
 		{
 			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
 			{
@@ -120,13 +122,32 @@ public class PlayerInfoManager : MonoBehaviour
 			level3TotalTabTime = TimeMeasureController.Instance.customizationTime;
 		}
 
-		if (scene.name == "Level3") isFinishedBattleground = true;
-		else if (scene.name == "BGLevel3") isFinishedOurGame = true;
+		else if (scene.name == "BGLevel2")
+		{
+			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
+			{
+				level2BGCustomTime[i] = TimeMeasureController.Instance.customTime[i];
+			}
+			level2BGTotalPlayTime = TimeMeasureController.Instance.totalGameTime;
+			level2BGTotalTabTime = TimeMeasureController.Instance.customizationTime;
+		}
+		else if (scene.name == "BGLevel3")
+		{
+			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
+			{
+				level3BGCustomTime[i] = TimeMeasureController.Instance.customTime[i];
+			}
+			level3BGTotalPlayTime = TimeMeasureController.Instance.totalGameTime;
+			level3BGTotalTabTime = TimeMeasureController.Instance.customizationTime;
+		}
+
+		if (scene.name == "BGLevel3") isFinishedBattleground = true;
+		else if (scene.name == "Level3") isFinishedOurGame = true;
 	}
 
 	public bool AfterSurvey()
 	{
-		bool value = isFinishedBattleground || isFinishedOurGame? true: false;
+		bool value = isFinishedBattleground && isFinishedOurGame? true: false;
 
 		return value;
 	}

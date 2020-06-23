@@ -12430,10 +12430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -13050,6 +13050,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scopes: []
+  rawImage: []
+  scopeImageIndex: 0
+  scopeIndex: 0
+  zoomInColor: {r: 0, g: 0, b: 0, a: 0}
+  zoomOutColor: {r: 0, g: 0, b: 0, a: 0}
+  Muzzles: []
+  muzzleIndex: 0
+  muzzleParticle: {fileID: 0}
+  crossHair: {fileID: 0}
+  Magazines: []
+  magazineIndex: 0
+  Stocks: []
+  stockIndex: 0
+  Handles: []
+  handleIndex: 0
 --- !u!114 &734962444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34337,10 +34353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -41182,6 +41198,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scopes: []
+  rawImage: []
+  scopeImageIndex: 0
+  scopeIndex: 0
+  zoomInColor: {r: 0, g: 0, b: 0, a: 0}
+  zoomOutColor: {r: 0, g: 0, b: 0, a: 0}
+  Muzzles: []
+  muzzleIndex: 0
+  muzzleParticle: {fileID: 0}
+  crossHair: {fileID: 0}
+  Magazines: []
+  magazineIndex: 0
+  Stocks: []
+  stockIndex: 0
+  Handles: []
+  handleIndex: 0
 --- !u!114 &1282986191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44343,7 +44375,6 @@ GameObject:
   - component: {fileID: 1473086512}
   - component: {fileID: 1473086515}
   - component: {fileID: 1473086514}
-  - component: {fileID: 1473086513}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -44368,18 +44399,6 @@ Transform:
   m_Father: {fileID: 1057773595}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1473086513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473086511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1473086514
 MonoBehaviour:
   m_ObjectHideFlags: 0

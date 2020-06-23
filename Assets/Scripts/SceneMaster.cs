@@ -17,12 +17,17 @@ public class SceneMaster : MonoBehaviour
         LoadingObject = this.transform.GetChild(0).gameObject;
     }
 
-    public void LoadLevel1()
+	private void Start()
+	{
+		
+	}
+
+	public void LoadLevel1()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         animator.SetTrigger("Load");
-        sceneName = "Battleground";
+        sceneName = "BGLevel1";
 
     }
 
@@ -60,5 +65,15 @@ public class SceneMaster : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 		animator.SetTrigger("Load");
 		sceneName = "Credit";
+	}
+
+	public void LoadLevel(string _sceneName)
+	{
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		GetComponent<Animator>().ResetTrigger("Load");
+		animator.SetTrigger("Load");
+		sceneName = _sceneName;
+		Debug.Log("Load Level");
 	}
 }

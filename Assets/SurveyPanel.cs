@@ -59,6 +59,8 @@ public class SurveyPanel : MonoBehaviour
 	public void SummitSurvey()
 	{
 		ProfileManager.Instance.audioSource.PlayOneShot(ProfileManager.Instance.selectClip);
+		ProfileManager.Instance.registrationText.color = ProfileManager.Instance.defaultColor;
+		ProfileManager.Instance.playText.color = ProfileManager.Instance.highlightColor;
 
 		// data save
 		string _played = played ? "플레이 경험이 있음" : "플레이 경험이 없음";

@@ -39,8 +39,9 @@ public class PauseMenuController : MonoBehaviour
             PauseUICanvas.SetActive(!PauseUICanvas.activeSelf);
             weaponUICanvas.SetActive(!weaponUICanvas.activeSelf);
             WeaponController.Instance.enabled = !WeaponController.Instance.enabled;
+			FirstPersonController.Instance.enabled = !FirstPersonController.Instance.enabled;
 
-            if (isPaused) FirstPersonController.Instance.LockHeadMovement();
+			if (isPaused) FirstPersonController.Instance.LockHeadMovement();
             else FirstPersonController.Instance.UnLockHeadMovement();
         }
     }

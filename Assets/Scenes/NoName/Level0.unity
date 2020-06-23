@@ -50819,7 +50819,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: ce23b52634938724787454f8a71dc48f, type: 3}
 --- !u!4 &794347108 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5975082541518108631, guid: ce23b52634938724787454f8a71dc48f,
+  m_CorrespondingSourceObject: {fileID: 8615232660161329691, guid: ce23b52634938724787454f8a71dc48f,
     type: 3}
   m_PrefabInstance: {fileID: 794347107}
   m_PrefabAsset: {fileID: 0}
@@ -54606,10 +54606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -59849,6 +59849,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scopes: []
+  rawImage: []
+  scopeImageIndex: 0
+  scopeIndex: 0
+  zoomInColor: {r: 0, g: 0, b: 0, a: 0}
+  zoomOutColor: {r: 0, g: 0, b: 0, a: 0}
+  Muzzles: []
+  muzzleIndex: 0
+  muzzleParticle: {fileID: 0}
+  crossHair: {fileID: 0}
+  Magazines: []
+  magazineIndex: 0
+  Stocks: []
+  stockIndex: 0
+  Handles: []
+  handleIndex: 0
 --- !u!114 &979699367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83140,6 +83156,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scopes: []
+  rawImage: []
+  scopeImageIndex: 0
+  scopeIndex: 0
+  zoomInColor: {r: 0, g: 0, b: 0, a: 0}
+  zoomOutColor: {r: 0, g: 0, b: 0, a: 0}
+  Muzzles: []
+  muzzleIndex: 0
+  muzzleParticle: {fileID: 0}
+  crossHair: {fileID: 0}
+  Magazines: []
+  magazineIndex: 0
+  Stocks: []
+  stockIndex: 0
+  Handles: []
+  handleIndex: 0
 --- !u!114 &1367197825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105746,6 +105778,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228ce60240dae0045a86c32f996d19a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scopes: []
+  rawImage: []
+  scopeImageIndex: 0
+  scopeIndex: 0
+  zoomInColor: {r: 0, g: 0, b: 0, a: 0}
+  zoomOutColor: {r: 0, g: 0, b: 0, a: 0}
+  Muzzles: []
+  muzzleIndex: 0
+  muzzleParticle: {fileID: 0}
+  crossHair: {fileID: 0}
+  Magazines: []
+  magazineIndex: 0
+  Stocks: []
+  stockIndex: 0
+  Handles: []
+  handleIndex: 0
 --- !u!114 &1766982184
 MonoBehaviour:
   m_ObjectHideFlags: 0

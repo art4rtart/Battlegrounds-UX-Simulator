@@ -19,6 +19,7 @@ public class Level2Manager : MonoBehaviour
 
     int index;
 	CustomState customState;
+
 	private void Start()
     {
         for(int i = 0; i < wayPointsManager.Length; i++) wayPointsManager[i].enabled = false;
@@ -48,11 +49,22 @@ public class Level2Manager : MonoBehaviour
             PartsScrollView.Instance.canvasGroup.alpha = 1f;
 
             SetTargetCustomization();
-            while (!PartsAddController.Instance.CurrentParts(indexes, count)) {
-                PartsAddController.Instance.ShowCurrentParts();
-				TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
-				yield return null;
+
+			if (!WeaponController.Instance.isBattleground) {
+				while (!PartsAddController.Instance.CurrentParts(indexes, count))
+				{
+					TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
+					yield return null;
+				}
 			}
+			else {
+				while (!PartsController.Instance.CurrentParts(indexes, count))
+				{
+					TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
+					yield return null;
+				}
+			}
+
 			successMessage.SetTrigger("Show");
 			customState.UpdateCustomState(true);
 			PartsScrollView.Instance.canvasGroup.alpha = 0f;
@@ -94,12 +106,23 @@ public class Level2Manager : MonoBehaviour
     {
         for (int i = 0; i < 5; i++) indexes[i] = -1;
 
-        indexes[0] = PartsAddController.Instance.muzzleIndex;
-        indexes[1] = PartsAddController.Instance.handleIndex;
-        indexes[2] = PartsAddController.Instance.magazineIndex;
-        indexes[3] = PartsAddController.Instance.stockIndex;
-        indexes[4] = PartsAddController.Instance.scopeIndex;
-    }
+		if (!WeaponController.Instance.isBattleground)
+		{
+			indexes[0] = PartsAddController.Instance.muzzleIndex;
+			indexes[1] = PartsAddController.Instance.handleIndex;
+			indexes[2] = PartsAddController.Instance.magazineIndex;
+			indexes[3] = PartsAddController.Instance.stockIndex;
+			indexes[4] = PartsAddController.Instance.scopeIndex;
+		}
+		else
+		{
+			indexes[0] = PartsController.Instance.muzzleIndex;
+			indexes[1] = PartsController.Instance.handleIndex;
+			indexes[2] = PartsController.Instance.magazineIndex;
+			indexes[3] = PartsController.Instance.stockIndex;
+			indexes[4] = PartsController.Instance.scopeIndex;
+		}
+	}
 
     int count = 0;
     public void SetTargetCustomization()

@@ -68,11 +68,12 @@ public class SurveyPanelAfter : MonoBehaviour
 	{
 		audioSource.PlayOneShot(selectClip);
 
+
+		PlayerInfoManager.Instance.SaveDataSendMail();
+
 		// Load to credit
 		sceneMaster = FindObjectOfType<SceneMaster>();
 		sceneMaster.LoadCredit();
-
-		PlayerInfoManager.Instance.SaveDataSendMail();
 	}
 
 	// level

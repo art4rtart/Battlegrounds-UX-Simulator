@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimeMeasureController : MonoBehaviour
 {
@@ -26,14 +27,9 @@ public class TimeMeasureController : MonoBehaviour
 
     private void Update()
     {
+		if (SceneManager.GetActiveScene().name == "Title" || SceneManager.GetActiveScene().name == "Credit") return;
         if(!Goal.Instance.goal) totalGameTime += Time.deltaTime;
-        else Debug.Log("Customization Time : " + customizationTime + " Total Game Time : " + totalGameTime);
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            totalCustomizationTime = !totalCustomizationTime;
-        }
-
+        if (Input.GetKeyDown(KeyCode.Tab)) totalCustomizationTime = !totalCustomizationTime;
         if (totalCustomizationTime) customizationTime += Time.deltaTime;
     }
 }

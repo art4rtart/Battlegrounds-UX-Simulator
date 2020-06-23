@@ -220,7 +220,8 @@ public class PartsAddController : MonoBehaviour
     public bool CurrentParts(int[] indexes, int _count)
     {
         bool value = false;
-        if(_count == 1)
+
+        if (_count == 1)
         {
             if (muzzleIndex == indexes[0]
              && handleIndex == indexes[1]
@@ -251,12 +252,8 @@ public class PartsAddController : MonoBehaviour
             else value = false;
         }
 
-        //Debug.Log(value);
-
-        //if(!value) { Debug.Log("Current : " + indexes[0] + " " + indexes[1] + " " + indexes[2] + " " + indexes[3] + " " + indexes[4] + " "); }
         return value;
     }
-
 
     public bool CurrentPartsLevel3(int[] indexes, int _count)
     {

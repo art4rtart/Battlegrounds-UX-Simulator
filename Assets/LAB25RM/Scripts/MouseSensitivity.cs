@@ -5,27 +5,31 @@ using TMPro;
 
 public class MouseSensitivity : MonoBehaviour
 {
-    [Header("Mouse Sensitivity Text")]
+	public static MouseSensitivity Instance { get; private set; }
+	[Header("Mouse Sensitivity Text")]
     TextMeshProUGUI mouseText;
     float sensitivity = 0.75f;
 
     private void Awake()
     {
         mouseText = GetComponent<TextMeshProUGUI>();
-    }
+		if(PlayerInfoManager.Instance) sensitivity = PlayerInfoManager.Instance.mouseSensitivity;
+	}
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Comma))
         {
             sensitivity -= 0.1f;
-            StopAllCoroutines();
+			PlayerInfoManager.Instance.mouseSensitivity = sensitivity;
+			StopAllCoroutines();
             StartCoroutine(ShowUI(sensitivity));
         }
 
         else if (Input.GetKeyDown(KeyCode.Period))
         {
             sensitivity += 0.1f;
+			PlayerInfoManager.Instance.mouseSensitivity = sensitivity;
             StopAllCoroutines();
             StartCoroutine(ShowUI(sensitivity));
         }

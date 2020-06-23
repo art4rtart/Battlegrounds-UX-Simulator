@@ -168,7 +168,8 @@ public class WeaponController : MonoBehaviour
         _item.gameObject.transform.SetParent(null);
         _item.DropItem(equippedGun);
         _item.gameObject.SetActive(true);
-    }
+		weaponAudioSource.PlayOneShot(gainClip);
+	}
 
     void LateUpdate()
     {

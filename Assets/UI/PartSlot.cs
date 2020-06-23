@@ -14,15 +14,20 @@ public class PartSlot : MonoBehaviour
     public Color targetPanelColor;
 
     bool isDropable;
-    bool isEmpty = true;
+    public bool isEmpty = true;
 
     public BGItemContent currentContent;
+
+
+	public BGItemContent slotBGItem;
+	int partType = 0;
 
     private void Awake()
     {
         panel = GetComponent<Image>();
         currentItemImage = this.transform.GetChild(0).GetComponent<Image>();
-    }
+		slotBGItem = this.transform.GetChild(0).GetComponent<BGItemContent>();
+	}
 
     bool isHovering;
 
@@ -52,10 +57,10 @@ public class PartSlot : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && isDropable && UIController.Instance.selectedContent != null)
         {
-            if (isEmpty)
-            {
-                currentContent = UIController.Instance.selectedContent;
+			currentContent = UIController.Instance.selectedContent;
 
+			if (isEmpty)
+            {
                 this.transform.GetChild(0).gameObject.SetActive(true);
                 this.transform.GetChild(0).GetComponent<BGItemContent>().itemImagePanel.sprite =
                     UIController.Instance.pickedItem.transform.GetChild(1).GetComponent<Image>().sprite;
@@ -84,50 +89,35 @@ public class PartSlot : MonoBehaviour
                 isEmpty = false;
 
                 WeaponController.Instance.equippedGun.partsController.WeaponCustomize((int)UIController.Instance.targetItem.partType, this.transform.GetChild(0).GetComponent<BGItemContent>().item.name);
-                ItemDetector.Instance.equippedItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
+				partType = (int)UIController.Instance.targetItem.partType;
 
+				ItemDetector.Instance.equippedItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
 
-				PartsAdd(currentContent.item.name);
+				UIController.Instance.pickedItem = null;
+				UIController.Instance.selectedContent = null;
 			}
             else
             {
-                ItemDetector.Instance.equippedItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
+				ItemDetector.Instance.equippedItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
+				ItemDetector.Instance.inventoryItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
 
-                if (currentContent.currentList == CurrentList.Ground)
-                {
-                    this.transform.GetChild(0).GetComponent<BGItemContent>().item.gameObject.SetActive(true);
-                    ItemDetector.Instance.groundItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-					ItemDetector.Instance.UpdateGroundItem();
-				}
-                else if (currentContent.currentList == CurrentList.Inventory)
-                {
-                    ItemDetector.Instance.inventoryItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-					ItemDetector.Instance.UpdateInventoryItems();
-				}
+				this.transform.GetChild(0).GetComponent<BGItemContent>().item = currentContent.item;
+				slotBGItem.itemImagePanel.sprite = currentContent.item.itemImage;
 
-                currentContent = UIController.Instance.selectedContent;
-                this.transform.GetChild(0).GetComponent<BGItemContent>().item = currentContent.item;
-                this.transform.GetChild(0).GetComponent<BGItemContent>().itemImagePanel.sprite =
-                    UIController.Instance.pickedItem.transform.GetChild(1).GetComponent<Image>().sprite;
+				ItemDetector.Instance.groundItems.Remove(currentContent.item);
+				ItemDetector.Instance.inventoryItems.Remove(currentContent.item);
+				ItemDetector.Instance.equippedItems.Add(currentContent.item);
 
-				PartsAdd(currentContent.item.name);
+				ItemDetector.Instance.UpdateGroundItem();
+				ItemDetector.Instance.UpdateInventoryItems();
 
-				if (currentContent.currentList == CurrentList.Ground)
-                {
-                    this.transform.GetChild(0).GetComponent<BGItemContent>().item.gameObject.SetActive(false);
-                    ItemDetector.Instance.groundItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-                }
-                else if (currentContent.currentList == CurrentList.Inventory)
-                {
-                    ItemDetector.Instance.inventoryItems.Remove(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-                }
+				WeaponController.Instance.equippedGun.partsController.WeaponCustomize((int)UIController.Instance.targetItem.partType, this.transform.GetChild(0).GetComponent<BGItemContent>().item.name);
+				partType = (int)UIController.Instance.targetItem.partType;
+			}
 
-                WeaponController.Instance.equippedGun.partsController.WeaponCustomize((int)UIController.Instance.targetItem.partType, this.transform.GetChild(0).GetComponent<BGItemContent>().item.name);
-                ItemDetector.Instance.equippedItems.Add(this.transform.GetChild(0).GetComponent<BGItemContent>().item);
-            }
-			UIController.Instance.pickedItem = null;
-            UIController.Instance.selectedContent = null;
-        }
+			UIController.Instance.selectedContent = null;
+			WeaponController.Instance.weaponAudioSource.PlayOneShot(WeaponController.Instance.gainClip);
+		}
     }
 
     public void SlotPointerDown()
@@ -181,7 +171,8 @@ public class PartSlot : MonoBehaviour
             ItemDetector.Instance.UpdateGroundItem();
             ItemDetector.Instance.UpdateInventoryItems();
 
-			PartsAdd("Empty");
+			WeaponController.Instance.equippedGun.partsController.WeaponCustomize(partType, "Empty");
+			partType = 0;
 
 			currentContent = null;
 
@@ -203,7 +194,8 @@ public class PartSlot : MonoBehaviour
             ItemDetector.Instance.UpdateGroundItem();
             ItemDetector.Instance.UpdateInventoryItems();
 
-			PartsAdd("Empty");
+			WeaponController.Instance.equippedGun.partsController.WeaponCustomize(partType, "Empty");
+			partType = 0;
 
 			currentContent = null;
 
@@ -212,26 +204,4 @@ public class PartSlot : MonoBehaviour
 			isEmpty = true;
         }
     }
-
-	void PartsAdd(string partsName)
-	{
-		switch (currentContent.item.partType)
-		{
-			case PartsType.Scope:
-				PartsAddController.Instance.SetScope(partsName);
-				break;
-			case PartsType.Muzzle:
-				PartsAddController.Instance.SetMuzzle(partsName);
-				break;
-			case PartsType.Magazine:
-				PartsAddController.Instance.SetMagazine(partsName);
-				break;
-			case PartsType.Reverse:
-				PartsAddController.Instance.SetStock(partsName);
-				break;
-			case PartsType.Handle:
-				PartsAddController.Instance.SetHandle(partsName);
-				break;
-		}
-	}
 }

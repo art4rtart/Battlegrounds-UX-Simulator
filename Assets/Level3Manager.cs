@@ -28,7 +28,8 @@ public class Level3Manager : MonoBehaviour
 
 	private void Update()
 	{
-		if (!PartsAddController.Instance.CurrentPartsLevel3(indexes, count)) return;
+		if (!WeaponController.Instance.isBattleground) { if (!PartsAddController.Instance.CurrentPartsLevel3(indexes, count)) return; }
+		else { if (!PartsController.Instance.CurrentPartsLevel3(indexes, count)) return; }
 
 		if (!isMessageShowed) { isMessageShowed = true; successMessage.SetTrigger("Show"); customState.UpdateCustomState(true); }
 	}
@@ -59,6 +60,8 @@ public class Level3Manager : MonoBehaviour
             PartsScrollView.Instance.canvasGroup.alpha = 1f;
 
             yield return new WaitForSeconds(8f);
+
+			if (WeaponController.Instance.isBattleground && index == 2) yield return new WaitForSeconds(5f);
 			successMessage.gameObject.SetActive(false);
 			dangerMessage.SetTrigger("Show");
 			enemySet[index].gameObject.SetActive(true);
@@ -77,15 +80,31 @@ public class Level3Manager : MonoBehaviour
             {
 				TimeMeasureController.Instance.customTime[index] += Time.deltaTime;
 
-				if (!PartsAddController.Instance.CurrentPartsLevel3(indexes, count))
+				if (!WeaponController.Instance.isBattleground)
 				{
-					WeaponController.Instance.equippedGun.damageRate = 0f;
+					if (!PartsAddController.Instance.CurrentPartsLevel3(indexes, count))
+					{
+						WeaponController.Instance.equippedGun.damageRate = 0f;
+					}
+					else
+					{
+						WeaponController.Instance.equippedGun.damageRate = damageRate;
+					}
 				}
+
 				else
 				{
-					WeaponController.Instance.equippedGun.damageRate = damageRate;
+					if (!PartsController.Instance.CurrentPartsLevel3(indexes, count))
+					{
+						WeaponController.Instance.equippedGun.damageRate = 0f;
+					}
+					else
+					{
+						WeaponController.Instance.equippedGun.damageRate = damageRate;
+					}
 				}
-                yield return null;
+
+				yield return null;
             }
 
 			//Temp

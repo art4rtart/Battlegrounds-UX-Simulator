@@ -49,6 +49,17 @@ public class ProfileManager : MonoBehaviour
 	public AudioClip selectClip;
 	public AudioClip hoverClip;
 	[HideInInspector] public AudioSource audioSource;
+	public Color buttonDisableColor;
+
+
+	[Header("Pipeline")]
+	public TextMeshProUGUI registrationText;
+	public TextMeshProUGUI playText;
+	public TextMeshProUGUI surveyText;
+	public Toggle playedBattleground;
+	public Toggle playedOurGame;
+	public Color highlightColor;
+	public Color defaultColor;
 
 	private void Start()
     {
@@ -67,18 +78,30 @@ public class ProfileManager : MonoBehaviour
 			surveyPanelBefore.gameObject.SetActive(false);
 			surveyPanelAfter.SetActive(true);
 			surveyPanelAfter.GetComponent<Animator>().SetTrigger("Show");
-			Debug.Log(surveyPanelAfter.gameObject.activeSelf);
+			playText.color = defaultColor;
+			surveyText.color = highlightColor;
 		}
 
 		if (PlayerInfoManager.Instance.isFinishedOurGame)
 		{
 			cyberneticButton.interactable = false;
 			cyberneticButton.GetComponent<Animator>().enabled = false;
+			cyberneticButton.image.color = buttonDisableColor;
+			cyberneticButton.transform.GetChild(1).gameObject.SetActive(true);
+			playedOurGame.isOn = true;
+
+			surveyPanelBefore.gameObject.SetActive(false);
+
 		}
 		else if (PlayerInfoManager.Instance.isFinishedBattleground)
 		{
 			battlegroundButton.interactable = false;
 			battlegroundButton.GetComponent<Animator>().enabled = false;
+			battlegroundButton.image.color = buttonDisableColor;
+			battlegroundButton.transform.GetChild(1).gameObject.SetActive(true);
+			playedBattleground.isOn = true;
+
+			surveyPanelBefore.gameObject.SetActive(false);
 		}
 	}
 
