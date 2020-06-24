@@ -107,7 +107,7 @@ public class ProfileManager : MonoBehaviour
 
     public void Check()
     {
-        if(nameInput.text != "" && ageInput.text != "" && isSelected) {
+        if(ageInput.text != "" && isSelected) {
             toggle.interactable = true;
             ActivateToogle();
         }
@@ -289,8 +289,8 @@ public class ProfileManager : MonoBehaviour
         float alpha = .5f;
         while (true)
         {
-            Color currentColor = nameInput.placeholder.color;
-            nameInput.placeholder.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+            Color currentColor = ageInput.placeholder.color;
+            // nameInput.placeholder.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
             ageInput.placeholder.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
             alpha = Mathf.PingPong(Time.time, 1f);
             yield return null;
