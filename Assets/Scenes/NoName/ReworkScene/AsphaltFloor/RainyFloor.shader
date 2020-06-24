@@ -28,6 +28,7 @@
 
         [Header(Ripples)]
         _RippleTexture ("RippleTexture", 2D) = "bump" {}
+        _RippleMask ("RippleMask", 2D) = "black" {}
 		_ColumnsX("Columns (X)", int) = 1
 		_RowsY("Rows (Y)", int) = 1
 		_AnimationSpeed("Frames Per Seconds", float) = 10
@@ -74,6 +75,7 @@
 		sampler2D _SidePlaneMetallic;
 
         sampler2D _RippleTexture;
+        sampler2D _RippleMask;
         uint _ColumnsX;
 		uint _RowsY;
 		float _AnimationSpeed;
@@ -134,6 +136,11 @@
         void Unity_TilingAndOffset_float(float2 UV, float2 Tiling, float2 Offset, out float2 Out)
         {
             Out = UV * Tiling + Offset;
+        }
+
+        void Unity_NormalStrength_float(float3 In, float Strength, out float3 Out)
+        {
+            Out = float3(In.rg * Strength, lerp(1, In.b, saturate(Strength)));
         }
 
         inline float2 unity_voronoi_noise_randomVector (float2 UV, float offset)
@@ -285,7 +292,7 @@
 
 
             ///// ripples ///////////////////////////
-            
+            float _RippleMask = tex2D(_TopPlaneTex, uv_top).x;
 			
             float2 UVforRipples01 = CalcRippleUV(IN.uv_MainTex,1,1,float2(0,0));
             float2 UVforRipples02 = CalcRippleUV(IN.uv_MainTex,2,3,float2(0.12,0.15));
@@ -296,9 +303,9 @@
             float3 RippleNormal02 =  UnpackNormal(tex2D(_RippleTexture, UVforRipples02));
             float3 RippleNormal03 =  UnpackNormal(tex2D(_RippleTexture, UVforRipples03));
 
-            RippleNormal01 *= 1-o.Smoothness;
-            RippleNormal02 *= 1-o.Smoothness;
-            RippleNormal03 *= 1-o.Smoothness;
+            Unity_NormalStrength_float(RippleNormal01,_RippleMask,RippleNormal01);
+            Unity_NormalStrength_float(RippleNormal02,_RippleMask,RippleNormal02);
+            Unity_NormalStrength_float(RippleNormal03,_RippleMask,RippleNormal03);
             
             float3 FinalNormal;
             
