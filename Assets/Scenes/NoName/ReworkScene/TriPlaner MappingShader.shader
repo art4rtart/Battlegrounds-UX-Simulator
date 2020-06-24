@@ -88,7 +88,7 @@ Shader "Custom/TriPlaner MappingShader" {
 			// put more per-instance properties here
 		UNITY_INSTANCING_BUFFER_END(Props)
 
-			// 참조 :: http://blog.selfshadow.com/publications/blending-in-detail/
+		// 참조 :: http://blog.selfshadow.com/publications/blending-in-detail/
 		half3 blend_rnm(half3 n1, half3 n2)
 		{
 			n1.z += 1;

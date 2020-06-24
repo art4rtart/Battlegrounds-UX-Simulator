@@ -122,7 +122,7 @@ Material:
     - _Desaturation: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FrontTilingFactor: 1
+    - _FrontTilingFactor: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -130,11 +130,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SideTilingFactor: 1
+    - _SideTilingFactor: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TopTilingFactor: 1
+    - _TopTilingFactor: 0.5
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
