@@ -12,6 +12,7 @@ public class Level3Manager : MonoBehaviour
 
     public ItemChecker[] itemCheker;
     public EnemyChecker[] enemySet;
+	public Fence[] fenceSet;
 
 	public Animator successMessage;
 	public Animator dangerMessage;
@@ -44,7 +45,8 @@ public class Level3Manager : MonoBehaviour
         {
             destination[index].OpenDestination();
             while (!destination[index].arrived) yield return null;
-            while (!itemCheker[index].isEmpty) yield return null;
+			fenceSet[index].FenceOn();
+			while (!itemCheker[index].isEmpty) yield return null;
 
 			// 8x Scope를 장착 후 몰려오는 적을 처치해 주세요.
 			customState.UpdateCustomState(false);
@@ -107,6 +109,7 @@ public class Level3Manager : MonoBehaviour
 				yield return null;
             }
 
+			fenceSet[index].FenceOff();
 			//Temp
 			TimeMeasureController.Instance.customTime[index] += 5f;
 

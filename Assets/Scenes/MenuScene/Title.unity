@@ -9588,9 +9588,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad57ecebf9a7659459f18685d5b8b89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFinishedBattleground: 1
-  isFinishedOurGame: 1
-  isTitled: 1
+  isFinishedBattleground: 0
+  isFinishedOurGame: 0
+  isTitled: 0
   playerName: "\uC2E4\uD5D8\uC790"
   playerAge: 27
   playerSex: "\uB0A8\uC131"

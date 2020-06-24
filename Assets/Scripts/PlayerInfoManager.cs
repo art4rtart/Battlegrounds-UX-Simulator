@@ -122,7 +122,7 @@ public class PlayerInfoManager : MonoBehaviour
 			level3TotalTabTime = TimeMeasureController.Instance.customizationTime;
 		}
 
-		else if (scene.name == "ReworkedBGLevel2BG")
+		else if (scene.name == "ReworkedLevel2BG")
 		{
 			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
 			{
@@ -131,7 +131,8 @@ public class PlayerInfoManager : MonoBehaviour
 			level2BGTotalPlayTime = TimeMeasureController.Instance.totalGameTime;
 			level2BGTotalTabTime = TimeMeasureController.Instance.customizationTime;
 		}
-		else if (scene.name == "ReworkedBGLevel3BG")
+
+		else if (scene.name == "ReworkedLevel3BG")
 		{
 			for (int i = 0; i < TimeMeasureController.Instance.customTime.Length; i++)
 			{

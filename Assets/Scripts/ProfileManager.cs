@@ -93,7 +93,7 @@ public class ProfileManager : MonoBehaviour
 			surveyPanelBefore.gameObject.SetActive(false);
 
 		}
-		else if (PlayerInfoManager.Instance.isFinishedBattleground)
+		if (PlayerInfoManager.Instance.isFinishedBattleground)
 		{
 			battlegroundButton.interactable = false;
 			battlegroundButton.GetComponent<Animator>().enabled = false;

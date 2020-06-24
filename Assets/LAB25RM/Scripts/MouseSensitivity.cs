@@ -33,7 +33,23 @@ public class MouseSensitivity : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(ShowUI(sensitivity));
         }
-    }
+
+		else if (Input.GetKeyDown(KeyCode.LeftBracket))
+		{
+			sensitivity -= 0.025f;
+			PlayerInfoManager.Instance.mouseSensitivity = sensitivity;
+			StopAllCoroutines();
+			StartCoroutine(ShowUI(sensitivity));
+		}
+
+		else if (Input.GetKeyDown(KeyCode.RightBracket))
+		{
+			sensitivity += 0.025f;
+			PlayerInfoManager.Instance.mouseSensitivity = sensitivity;
+			StopAllCoroutines();
+			StartCoroutine(ShowUI(sensitivity));
+		}
+	}
 
     float alpha = 0;
     float fadeSpeed = 2f;
