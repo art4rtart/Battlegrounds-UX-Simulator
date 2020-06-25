@@ -42,27 +42,37 @@ public class PlayerInfoManager : MonoBehaviour
 	public string intuition;  
 	public string aesthetic;     
 	public string efficiency;      
-	public string feedback;  
+	public string feedback;
+	public string convinience;
+	public string look;
+	public string same;
+	public string control;
+	public string interaction;
+	public string noerror;
 
 	[Header("Our Game Level2")]
 	public float level2TotalPlayTime;
 	public float level2TotalTabTime;
 	public float[] level2CustomTime = new float[3];
+	public int level2Died;
 
 	[Header("Our Game Level3")]
 	public float level3TotalPlayTime;
 	public float level3TotalTabTime;
 	public float[] level3CustomTime = new float[3];
+	public int level3Died;
 
 	[Header("Battleground Level2")]
 	public float level2BGTotalPlayTime;
 	public float level2BGTotalTabTime;
 	public float[] level2BGCustomTime = new float[3];
+	public int level2DiedBG;
 
 	[Header("Battleground Level3")]
 	public float level3BGTotalPlayTime;
 	public float level3BGTotalTabTime;
 	public float[] level3BGCustomTime = new float[3];
+	public int level3DiedBG;
 
 	string source = ""; //읽어낸 텍스트 할당받는 변수
 	public string filePath = "";
@@ -78,7 +88,8 @@ public class PlayerInfoManager : MonoBehaviour
 
 	public void SavePlayerSurveyDataAfterGame(string _battleGroundLevel, string _ourGameLevel, string _verseLevel, 
 		string _battleGroundPerfer, string _ourGamePerfer, string _versePerfer,
-		string _intuition, string _aesthetic, string _efficiency, string _feedback)
+		string _intuition, string _aesthetic, string _efficiency, 
+		string _convinience, string _look, string _same, string _control, string _interaction, string _noerror,  string _feedback)
 	{
 		battleGroundLevel = _battleGroundLevel;
 		ourGameLevel = _ourGameLevel;
@@ -90,13 +101,43 @@ public class PlayerInfoManager : MonoBehaviour
 		aesthetic = _aesthetic;
 		efficiency = _efficiency;
 		feedback = _feedback;
+		convinience = _convinience;
+		look = _look;
+		same = _same;
+		control = _control;
+		interaction = _interaction;
+		noerror = _noerror;
 	}
 
 	public void SavePlayerData(string _playerName, string _playerAge, string _playerSex)
 	{
-		playerName = _playerName;
+		//playerName = _playerName;
 		playerAge = _playerAge;
 		playerSex = _playerSex;
+	}
+
+	public void PlayerDied()
+	{
+		Scene scene = SceneManager.GetActiveScene();
+
+		if (scene.name == "ReworkedLevel2")
+		{
+			level2Died++;
+		}
+		else if (scene.name == "ReworkedLevel3")
+		{
+			level3Died++;
+		}
+
+		else if (scene.name == "ReworkedLevel2BG")
+		{
+			level2DiedBG++;
+		}
+
+		else if (scene.name == "ReworkedLevel3BG")
+		{
+			level3DiedBG++;
+		}
 	}
 
 	public void SceneCompleted()
@@ -187,6 +228,7 @@ public class PlayerInfoManager : MonoBehaviour
 		writer.WriteLine("커스텀 시간 (3): " + level2BGCustomTime[2].ToString("N2"));
 		writer.WriteLine("총 TAB 시간: " + level2BGTotalTabTime.ToString("N2"));
 		writer.WriteLine("총 플레이 시간: " + level2BGTotalPlayTime.ToString("N2"));
+		writer.WriteLine("스테이지 사망 횟수: " + level2DiedBG.ToString());
 		writer.WriteLine("\n");
 		writer.WriteLine("배틀그라운드 Level 3");
 		writer.WriteLine("커스텀 시간 (1): " + level3BGCustomTime[0].ToString("N2"));
@@ -194,6 +236,7 @@ public class PlayerInfoManager : MonoBehaviour
 		writer.WriteLine("커스텀 시간 (3): " + level3BGCustomTime[2].ToString("N2"));
 		writer.WriteLine("총 TAB 시간: " + level3BGTotalTabTime.ToString("N2"));
 		writer.WriteLine("총 플레이 시간: " + level3BGTotalPlayTime.ToString("N2"));
+		writer.WriteLine("스테이지 사망 횟수: " + level3DiedBG.ToString());
 
 		writer.WriteLine("\n---------------------------------------------\n");
 
@@ -203,6 +246,7 @@ public class PlayerInfoManager : MonoBehaviour
 		writer.WriteLine("커스텀 시간 (3): " + level2CustomTime[2].ToString("N2"));
 		writer.WriteLine("총 TAB 시간: " + level2TotalTabTime.ToString("N2"));
 		writer.WriteLine("총 플레이 시간: " + level2TotalPlayTime.ToString("N2"));
+		writer.WriteLine("스테이지 사망 횟수: " + level2Died.ToString());
 		writer.WriteLine("\n");
 		writer.WriteLine("새로운UI Level 3");
 		writer.WriteLine("커스텀 시간 (1): " + level3CustomTime[0].ToString("N2"));
@@ -210,6 +254,7 @@ public class PlayerInfoManager : MonoBehaviour
 		writer.WriteLine("커스텀 시간 (3): " + level3CustomTime[2].ToString("N2"));
 		writer.WriteLine("총 TAB 시간: " + level3TotalTabTime.ToString("N2"));
 		writer.WriteLine("총 플레이 시간: " + level3TotalPlayTime.ToString("N2"));
+		writer.WriteLine("스테이지 사망 횟수: " + level3Died.ToString());
 
 		writer.WriteLine("\n---------------------------------------------\n");
 
@@ -231,6 +276,12 @@ public class PlayerInfoManager : MonoBehaviour
 		writer.WriteLine("직관성: " + intuition);
 		writer.WriteLine("심미성: " + aesthetic);
 		writer.WriteLine("효율성: " + efficiency);
+		writer.WriteLine("편의성: " + convinience);
+		writer.WriteLine("가시성: " + look);
+		writer.WriteLine("일관성: " + same);
+		writer.WriteLine("조작감: " + control);
+		writer.WriteLine("상호작용: " + interaction);
+		writer.WriteLine("오류예방: " + noerror);
 
 		writer.WriteLine("\n---------------------------------------------\n");
 

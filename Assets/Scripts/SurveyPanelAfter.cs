@@ -56,14 +56,16 @@ public class SurveyPanelAfter : MonoBehaviour
 			nextButton.gameObject.SetActive(false);
 			summitButton.interactable = true;
 			PlayerInfoManager.Instance.SavePlayerSurveyDataAfterGame(battleGroundLevel, ourGameLevel, verseLevel,
-			battleGroundPerfer, ourGamePerfer, versePerfer, intuition, aesthetic, efficiency, feedback);
+			battleGroundPerfer, ourGamePerfer, versePerfer, intuition, aesthetic, efficiency, 
+			convinience, look, same, control, interaction, noerror,
+			feedback);
 		}
 	}
 
 	SceneMaster sceneMaster;
 
 	string battleGroundLevel, ourGameLevel, verseLevel, battleGroundPerfer, ourGamePerfer, versePerfer,
-		intuition, aesthetic, efficiency;
+		intuition, aesthetic, efficiency, convinience, interaction, control, look, same, noerror;
 	public void SummitButtonClick()
 	{
 		audioSource.PlayOneShot(selectClip);
@@ -72,6 +74,12 @@ public class SurveyPanelAfter : MonoBehaviour
 		PlayerInfoManager.Instance.SaveDataSendMail();
 
 		// Load to credit
+		StartCoroutine(LoadSceneAfterSeconds(2f));
+	}
+
+	IEnumerator LoadSceneAfterSeconds(float _waitSeconds)
+	{
+		yield return new WaitForSeconds(_waitSeconds);
 		sceneMaster = FindObjectOfType<SceneMaster>();
 		sceneMaster.LoadCredit();
 	}
@@ -288,12 +296,31 @@ public class SurveyPanelAfter : MonoBehaviour
 	public Slider intuitionSlider;
 	public Slider aestheticSlider;
 	public Slider efficiencySlider;
+	public Slider convinienceSlider;
+	public Slider controlSlider;
+	public Slider interactionSlider;
+	public Slider lookSlider;
+	public Slider sameSlider;
+	public Slider noerrorSlider;
 	bool valueChanged_1;
 	bool valueChanged_2;
 	bool valueChanged_3;
+	bool valueChanged_4;
+	bool valueChanged_5;
+	bool valueChanged_6;
+	bool valueChanged_7;
+	bool valueChanged_8;
+	bool valueChanged_9;
 	public Text text_1;
 	public Text text_2;
 	public Text text_3;
+	public Text text_4;
+	public Text text_5;
+	public Text text_6;
+	public Text text_7;
+	public Text text_8;
+	public Text text_9;
+
 	public void Intuition()
 	{
 		valueChanged_1 = true;
@@ -382,6 +409,186 @@ public class SurveyPanelAfter : MonoBehaviour
 		}
 
 		efficiency = text_3.text + "(" + (efficiencySlider.value * 100f).ToString("N0") + ")";        // 효율성
+	}
+
+	public void Convinience()
+	{
+		valueChanged_4 = true;
+		if (valueChanged_4 && valueChanged_5 && valueChanged_6) nextButton.interactable = true;
+		float value = convinienceSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_4.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_4.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_4.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_4.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_4.text = "매우 높음";
+		}
+
+		convinience = text_4.text + "(" + (convinienceSlider.value * 100f).ToString("N0") + ")";                 // 직관성
+	}
+
+	public void Control()
+	{
+		valueChanged_5 = true;
+		if (valueChanged_4 && valueChanged_5 && valueChanged_6) nextButton.interactable = true;
+		float value = controlSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_5.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_5.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_5.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_5.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_5.text = "매우 높음";
+		}
+
+		control = text_5.text + "(" + (controlSlider.value * 100f).ToString("N0") + ")";                 // 심미성
+	}
+
+	public void Interaction()
+	{
+		valueChanged_6 = true;
+		if (valueChanged_4 && valueChanged_5 && valueChanged_6) nextButton.interactable = true;
+		float value = interactionSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_6.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_6.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_6.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_6.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_6.text = "매우 높음";
+		}
+
+		interaction = text_6.text + "(" + (interactionSlider.value * 100f).ToString("N0") + ")";        // 효율성
+	}
+
+	public void Look()
+	{
+		valueChanged_7 = true;
+		if (valueChanged_7 && valueChanged_8 && valueChanged_9) nextButton.interactable = true;
+		float value = lookSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_7.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_7.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_7.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_7.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_7.text = "매우 높음";
+		}
+
+		look = text_7.text + "(" + (lookSlider.value * 100f).ToString("N0") + ")";                 // 직관성
+	}
+
+	public void Same()
+	{
+		valueChanged_8 = true;
+		if (valueChanged_7 && valueChanged_8 && valueChanged_9) nextButton.interactable = true;
+		float value = sameSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_8.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_8.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_8.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_8.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_8.text = "매우 높음";
+		}
+
+		same = text_8.text + "(" + (sameSlider.value * 100f).ToString("N0") + ")";                 // 심미성
+	}
+
+	public void Noerror()
+	{
+		valueChanged_9 = true;
+		if (valueChanged_7 && valueChanged_8 && valueChanged_9) nextButton.interactable = true;
+		float value = noerrorSlider.value * 100f;
+
+		if (0 <= value && value < 20)
+		{
+			text_9.text = "매우 낮음";
+		}
+		else if (20 < value && value < 40)
+		{
+			text_9.text = "낮음";
+		}
+		else if (40 < value && value < 60)
+		{
+			text_9.text = "보통";
+		}
+		else if (60 < value && value < 80)
+		{
+			text_9.text = "높음";
+		}
+		else if (80 < value && value <= 100)
+		{
+			text_9.text = "매우 높음";
+		}
+
+		noerror = text_9.text + "(" + (noerrorSlider.value * 100f).ToString("N0") + ")";        // 효율성
 	}
 
 	string feedback;

@@ -209,7 +209,8 @@ public class FirstPersonController : MonoBehaviour
     public void Die()
     {
         StartCoroutine(DieEffect());
-    }
+		PlayerInfoManager.Instance.PlayerDied();
+	}
 
     public Material DieVignette;
 

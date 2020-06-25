@@ -8341,6 +8341,78 @@ Transform:
   m_Father: {fileID: 1345377545}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &471542580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471542581}
+  - component: {fileID: 471542583}
+  - component: {fileID: 471542582}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [Roboto-Light SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &471542581
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471542580}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1996244379}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &471542582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471542580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 1.25
+  m_canvasRenderer: {fileID: 471542583}
+  m_TextComponent: {fileID: 1996244380}
+  m_materialReferenceIndex: 1
+--- !u!222 &471542583
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471542580}
+  m_CullTransparentMesh: 0
 --- !u!1 &474996576
 GameObject:
   m_ObjectHideFlags: 0
@@ -34289,8 +34361,8 @@ RectTransform:
   - {fileID: 714743433}
   - {fileID: 1741854622}
   - {fileID: 620520333}
-  - {fileID: 1363118878}
   - {fileID: 1367730417}
+  - {fileID: 1363118878}
   m_Father: {fileID: 936551528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36333,8 +36405,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: -23}
-  m_SizeDelta: {x: 80, y: 260}
+  m_AnchoredPosition: {x: -40, y: -19}
+  m_SizeDelta: {x: 80, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1073891231
 MonoBehaviour:
@@ -36354,7 +36426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD\nShift\nMRB\nMLB \nR\nTAB\nNUM1\nNUM2\nNum3\nESC"
+  m_text: "WASD\nShift\nMRB\nMLB \nR\nTAB\nComma\nDot\nESC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce78c76bc0a77b4419be424c3122a052, type: 2}
   m_sharedMaterial: {fileID: 8359270036449619529, guid: ce78c76bc0a77b4419be424c3122a052,
@@ -36424,12 +36496,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1073891231}
-    characterCount: 44
+    characterCount: 39
     spriteCount: 0
-    spaceCount: 10
-    wordCount: 10
+    spaceCount: 9
+    wordCount: 9
     linkCount: 0
-    lineCount: 10
+    lineCount: 9
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -41492,8 +41564,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 825, y: 885}
-  m_SizeDelta: {x: 200, y: 320}
+  m_AnchoredPosition: {x: 825, y: 905.21}
+  m_SizeDelta: {x: 200, y: 279.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1299396531
 CanvasGroup:
@@ -42185,7 +42257,7 @@ RectTransform:
   - {fileID: 648273362}
   - {fileID: 1155533014}
   m_Father: {fileID: 997990113}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -42561,7 +42633,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 997990113}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -47266,7 +47338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 133}
+  m_AnchoredPosition: {x: 5, y: 118}
   m_SizeDelta: {x: 170, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650638838
@@ -54015,14 +54087,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 471542581}
   m_Father: {fileID: 1299396530}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: -23}
-  m_SizeDelta: {x: 80, y: 260}
+  m_AnchoredPosition: {x: 40, y: -19}
+  m_SizeDelta: {x: 80, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1996244380
 MonoBehaviour:
@@ -54042,7 +54115,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "MOVE\nRun\nShoot\nZoom \nReload\nCUSTOMIZE\nWeapon1\nWeapon2\nWeapon3\nEscape"
+  m_text: "MOVE\nRun\nShoot\nZoom \nReload\nCUSTOMIZE\nSensitivity\nSensitivity\nEscape"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce78c76bc0a77b4419be424c3122a052, type: 2}
   m_sharedMaterial: {fileID: 8359270036449619529, guid: ce78c76bc0a77b4419be424c3122a052,
@@ -54114,10 +54187,10 @@ MonoBehaviour:
     textComponent: {fileID: 1996244380}
     characterCount: 68
     spriteCount: 0
-    spaceCount: 10
-    wordCount: 10
+    spaceCount: 9
+    wordCount: 9
     linkCount: 0
-    lineCount: 10
+    lineCount: 9
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -54126,7 +54199,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 471542582}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -212,8 +212,8 @@ public class WeaponController : MonoBehaviour
 
         // Change Weapon
         if (Input.GetKeyDown(KeyCode.Alpha1) && currentGunIndex != 1 && !isFiring) ChangeWeapon(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && currentGunIndex != 2 && !isFiring) ChangeWeapon(2);
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && currentGunIndex != 3 && !isFiring) ChangeWeapon(3);
+        //else if (Input.GetKeyDown(KeyCode.Alpha2) && currentGunIndex != 2 && !isFiring) ChangeWeapon(2);
+        //else if (Input.GetKeyDown(KeyCode.Alpha3) && currentGunIndex != 3 && !isFiring) ChangeWeapon(3);
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");

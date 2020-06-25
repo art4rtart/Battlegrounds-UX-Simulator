@@ -57,7 +57,7 @@ public class MouseSensitivity : MonoBehaviour
     {
         FirstPersonController.Instance.mouseManager.XSensitivity = _value;
         FirstPersonController.Instance.mouseManager.YSensitivity = _value;
-        if (mouseText) mouseText.text = "<size=20>" + FirstPersonController.Instance.mouseManager.XSensitivity + "</size>" + "\nMouse sensitivity";
+		if (mouseText) mouseText.text = "<size=20>" + FirstPersonController.Instance.mouseManager.XSensitivity.ToString("N3") + "</size>" + "\nMouse sensitivity";
 
         Color textColor = mouseText.color;
         while (alpha < .5f)
