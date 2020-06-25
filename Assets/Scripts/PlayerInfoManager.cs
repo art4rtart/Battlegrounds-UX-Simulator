@@ -50,6 +50,8 @@ public class PlayerInfoManager : MonoBehaviour
 	public string interaction;
 	public string noerror;
 
+	public string firstPlayedGame;
+
 	[Header("Our Game Level2")]
 	public float level2TotalPlayTime;
 	public float level2TotalTabTime;
@@ -213,7 +215,7 @@ public class PlayerInfoManager : MonoBehaviour
 		StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
 
 		writer.WriteLine(playerName + "(" + playerAge + "), " + playerSex);
-
+		writer.WriteLine("이 플레이어는 " + firstPlayedGame + "를 먼저 플레이 하였습니다.");
 		writer.WriteLine("\n---------------------------------------------\n");
 
 		writer.WriteLine("배틀로얄 게임 " + playerHasPlayed);

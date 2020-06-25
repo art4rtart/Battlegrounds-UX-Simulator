@@ -78,6 +78,7 @@ public class ProfileManager : MonoBehaviour
 			surveyPanelBefore.gameObject.SetActive(false);
 			surveyPanelAfter.SetActive(true);
 			surveyPanelAfter.GetComponent<Animator>().SetTrigger("Show");
+			registrationText.color = defaultColor;
 			playText.color = defaultColor;
 			surveyText.color = highlightColor;
 		}
@@ -89,9 +90,10 @@ public class ProfileManager : MonoBehaviour
 			cyberneticButton.image.color = buttonDisableColor;
 			cyberneticButton.transform.GetChild(1).gameObject.SetActive(true);
 			playedOurGame.isOn = true;
-
+	
 			surveyPanelBefore.gameObject.SetActive(false);
 
+			if (!PlayerInfoManager.Instance.isFinishedBattleground) PlayerInfoManager.Instance.firstPlayedGame = "새로운 UI";
 		}
 		if (PlayerInfoManager.Instance.isFinishedBattleground)
 		{
@@ -102,6 +104,8 @@ public class ProfileManager : MonoBehaviour
 			playedBattleground.isOn = true;
 
 			surveyPanelBefore.gameObject.SetActive(false);
+
+			if (!PlayerInfoManager.Instance.isFinishedOurGame) PlayerInfoManager.Instance.firstPlayedGame = "배틀그라운드";
 		}
 	}
 

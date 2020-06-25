@@ -5389,7 +5389,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 855638015
+    rgba: 4281545679
   m_fontColor: {r: 0.8117648, g: 0.20000002, b: 0.20000002, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5907,7 +5907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &261764478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11832,30 +11832,35 @@ MonoBehaviour:
   control: 
   interaction: 
   noerror: 
+  firstPlayedGame: 
   level2TotalPlayTime: 0
   level2TotalTabTime: 0
   level2CustomTime:
   - 0
   - 0
   - 0
+  level2Died: 0
   level3TotalPlayTime: 0
   level3TotalTabTime: 0
   level3CustomTime:
   - 0
   - 0
   - 0
+  level3Died: 0
   level2BGTotalPlayTime: 0
   level2BGTotalTabTime: 0
   level2BGCustomTime:
   - 0
   - 0
   - 0
+  level2DiedBG: 0
   level3BGTotalPlayTime: 0
   level3BGTotalTabTime: 0
   level3BGCustomTime:
   - 0
   - 0
   - 0
+  level3DiedBG: 0
   filePath: 
   mouseSensitivity: 0.75
 --- !u!4 &599551659
@@ -12629,7 +12634,7 @@ MonoBehaviour:
   m_text: PLAYERUNKNOWN'S BATTLEGROUND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce78c76bc0a77b4419be424c3122a052, type: 2}
-  m_sharedMaterial: {fileID: 3335575271096519697, guid: 641ef03f66e92f8428f194a12c3bf051,
+  m_sharedMaterial: {fileID: 8359270036449619529, guid: ce78c76bc0a77b4419be424c3122a052,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -12672,7 +12677,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -12707,7 +12712,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -43530,7 +43535,7 @@ MonoBehaviour:
   m_text: PLAYERUNKNOWN'S BATTLEGROUND <color=red><b>(NEW)</b></color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce78c76bc0a77b4419be424c3122a052, type: 2}
-  m_sharedMaterial: {fileID: 3335575271096519697, guid: 641ef03f66e92f8428f194a12c3bf051,
+  m_sharedMaterial: {fileID: 8359270036449619529, guid: ce78c76bc0a77b4419be424c3122a052,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -43573,7 +43578,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -43597,10 +43602,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1857581073}
-    characterCount: 22
+    characterCount: 34
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 4
+    spaceCount: 2
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -43608,7 +43613,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
